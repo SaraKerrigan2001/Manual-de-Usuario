@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación ProgSena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            border-color: #10b981;
+        }
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .card a:hover {
+            background: #059669;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .info-box {
+            background: #e7f3ff;
+            padding: 20px;
+            border-left: 4px solid #2196F3;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Documentación ProgSena</h1>
+            <p>Sistema de Gestión Académica</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Versión 3.0 | Marzo 2026</p>
+        </div>
+
+        <div class="content">
+            <div class="info-box">
+                <strong>Bienvenido a la documentación oficial del Sistema ProgSena</strong><br>
+                Selecciona el documento que deseas consultar:
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">👤</div>
+                    <h3>Manual de Usuario</h3>
+                    <p>Guía completa para usuarios del sistema. Incluye credenciales, instrucciones de uso y solución de problemas.</p>
+                    <a href="Manual_Usuario_ProgSena.html">Ver Manual</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Manual de Funcionalidades</h3>
+                    <p>Documentación detallada de todas las funcionalidades del sistema, características y módulos.</p>
+                    <a href="Manual_Funcionalidades_ProgSena.html">Ver Manual</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🗄️</div>
+                    <h3>Reporte de Consultas BD</h3>
+                    <p>Más de 50 consultas SQL documentadas, optimización, índices y mejores prácticas.</p>
+                    <a href="Reporte_Consultas_BD_ProgSena.html">Ver Reporte</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Sistema de Gestión Académica ProgSena</strong></p>
+            <p>© 2026 SENA - Todos los derechos reservados</p>
+        </div>
+    </div>
+</body>
+</html>
