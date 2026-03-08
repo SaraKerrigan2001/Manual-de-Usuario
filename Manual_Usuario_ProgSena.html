@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - ProgSena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #10b981;
+        }
+        .section h2 {
+            color: #10b981;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+        .section h3 {
+            color: #059669;
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+        }
+        .credentials {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+        }
+        .credentials h4 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+        .credential-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .credential-item strong {
+            color: #10b981;
+        }
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 60px;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: #10b981;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .feature-card h4 {
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Manual de Usuario</h1>
+            <p>Sistema de Gestión Académica - ProgSena</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Versión 3.0 | Marzo 2026</p>
+        </div>
+
+        <div class="content">
+            <!-- SECCIÓN 1: INTRODUCCIÓN -->
+            <div class="section">
+                <h2>1. Introducción</h2>
+                <p>Bienvenido al Sistema de Gestión Académica ProgSena. Este manual le guiará a través de todas las funcionalidades del sistema, diseñado para facilitar la gestión de asignaciones, instructores, fichas y competencias en el SENA.</p>
+                
+                <h3>1.1 Objetivo del Sistema</h3>
+                <p>El sistema ProgSena permite:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Gestionar asignaciones de instructores a fichas</li>
+                    <li>Administrar ambientes y recursos</li>
+                    <li>Controlar competencias y experiencias formativas</li>
+                    <li>Visualizar calendarios de asignaciones</li>
+                    <li>Enviar y recibir notificaciones</li>
+                </ul>
+
+                <h3>1.2 Roles del Sistema</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>👨‍💼 Administrador</h4>
+                        <p>Acceso completo al sistema. Puede gestionar usuarios, sedes, programas, competencias y todas las configuraciones.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🏫 Coordinador</h4>
+                        <p>Gestiona asignaciones, envía notificaciones a instructores, administra fichas y ambientes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🎓 Instructor</h4>
+                        <p>Visualiza sus asignaciones, recibe notificaciones, actualiza su perfil y consulta su calendario.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: ACCESO AL SISTEMA -->
+            <div class="section">
+                <h2>2. Acceso al Sistema</h2>
+                
+                <h3>2.1 Credenciales de Acceso</h3>
+                <div class="credentials">
+                    <h4>Usuarios del Sistema:</h4>
+                    
+                    <div class="credential-item">
+                        <strong>Administrador</strong><br>
+                        Email: spiligr1@gmail.com<br>
+                        Contraseña: 12345678<br>
+                        Rol: Administrador
+                    </div>
+                    
+                    <div class="credential-item">
+                        <strong>Coordinador</strong><br>
+                        Email: maria.gonzalez@sena.edu.co<br>
+                        Contraseña: maria123<br>
+                        Rol: Coordinador
+                    </div>
+                    
+                    <div class="credential-item">
+                        <strong>Instructor</strong><br>
+                        Email: josevera@gmail.com<br>
+                        Contraseña: jose123<br>
+                        Rol: Instructor
+                    </div>
+                </div>
+
+                <h3>2.2 Pasos para Iniciar Sesión</h3>
+                <ol class="steps">
+                    <li>Abra su navegador web (Chrome, Firefox, Edge)</li>
+                    <li>Ingrese a la URL: http://localhost/Mini-Proyecto/</li>
+                    <li>Seleccione su rol en el dropdown "ROL DE USUARIO"</li>
+                    <li>Ingrese su correo institucional</li>
+                    <li>Ingrese su contraseña</li>
+                    <li>Haga clic en "Iniciar Sesión Segura"</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> Asegúrese de seleccionar el rol correcto antes de iniciar sesión. Si selecciona un rol incorrecto, el sistema mostrará un error.
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: DASHBOARD COORDINADOR -->
+            <div class="section">
+                <h2>3. Dashboard del Coordinador</h2>
+                
+                <h3>3.1 Visión General</h3>
+                <p>El dashboard del coordinador es el centro de control para la gestión académica. Desde aquí puede:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Crear y gestionar asignaciones</li>
+                    <li>Visualizar el calendario de clases</li>
+                    <li>Enviar notificaciones a instructores</li>
+                    <li>Revisar solicitudes de cambio de perfil</li>
+                    <li>Administrar fichas, ambientes y competencias</li>
+                </ul>
+
+                <h3>3.2 Crear Nueva Asignación</h3>
+                <ol class="steps">
+                    <li>Haga clic en el botón "+ Nueva Asignación" o en una fecha del calendario</li>
+                    <li>Complete el formulario:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Ambiente:</strong> Seleccione el aula o laboratorio</li>
+                            <li><strong>Competencia:</strong> Elija la experiencia formativa</li>
+                            <li><strong>Instructor:</strong> Seleccione el instructor asignado</li>
+                            <li><strong>Ficha:</strong> Elija el código de ficha</li>
+                            <li><strong>Días de la semana:</strong> Marque los días (Lun-Sáb)</li>
+                            <li><strong>Rango de fechas:</strong> Fecha inicio y fin</li>
+                            <li><strong>Rango de horas:</strong> Hora inicio y fin (intervalos de 15 min)</li>
+                        </ul>
+                    </li>
+                    <li>Haga clic en "Guardar"</li>
+                </ol>
+
+                <div class="success">
+                    <strong>✅ Resultado:</strong> El sistema creará automáticamente eventos en el calendario para cada día seleccionado en el rango de fechas especificado.
+                </div>
+
+                <h3>3.3 Enviar Notificaciones</h3>
+                <ol class="steps">
+                    <li>Haga clic en el botón "Notificar Instructor"</li>
+                    <li>Seleccione el instructor del dropdown</li>
+                    <li>Elija el tipo de notificación:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>General</li>
+                            <li>Asignación</li>
+                            <li>Cambio de Horario</li>
+                            <li>Recordatorio</li>
+                            <li>Urgente</li>
+                        </ul>
+                    </li>
+                    <li>Complete el título y mensaje (o use las opciones predefinidas)</li>
+                    <li>Haga clic en "Enviar Notificación"</li>
+                </ol>
+
+                <h3>3.4 Gestión de Asignaciones</h3>
+                <p>En la sección "Gestión de Asignaciones" puede:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Ver lista completa de asignaciones</li>
+                    <li>Filtrar por ficha, instructor o estado</li>
+                    <li>Editar asignaciones existentes</li>
+                    <li>Eliminar asignaciones</li>
+                    <li>Ver estadísticas (Total de asignaciones, Asignaciones activas)</li>
+                </ul>
+            </div>
+
+            <!-- SECCIÓN 4: DASHBOARD INSTRUCTOR -->
+            <div class="section">
+                <h2>4. Dashboard del Instructor</h2>
+                
+                <h3>4.1 Visión General</h3>
+                <p>El dashboard del instructor muestra:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Información personal y perfil</li>
+                    <li>Notificaciones recibidas</li>
+                    <li>Calendario de asignaciones</li>
+                    <li>Historial de cambios de perfil</li>
+                </ul>
+
+                <h3>4.2 Editar Perfil</h3>
+                <ol class="steps">
+                    <li>Haga clic en el botón "Editar Perfil" en la tarjeta de perfil</li>
+                    <li>Actualice los campos deseados:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Nombre y Apellido</li>
+                            <li>Email</li>
+                            <li>Teléfono</li>
+                            <li>Documento</li>
+                            <li>Especialidad</li>
+                            <li>Biografía</li>
+                        </ul>
+                    </li>
+                    <li>(Opcional) Cambiar contraseña ingresando:
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Contraseña actual</li>
+                            <li>Nueva contraseña</li>
+                            <li>Confirmar nueva contraseña</li>
+                        </ul>
+                    </li>
+                    <li>Haga clic en "Guardar Cambios"</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>⚠️ Nota:</strong> Los cambios de perfil se envían automáticamente al coordinador para su revisión y aprobación.
+                </div>
+
+                <h3>4.3 Gestionar Notificaciones</h3>
+                <p>En el panel de notificaciones puede:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Ver notificaciones no leídas (badge rojo con contador)</li>
+                    <li>Hacer clic en una notificación para marcarla como leída</li>
+                    <li>Eliminar notificaciones</li>
+                    <li>Las notificaciones se actualizan automáticamente cada 30 segundos</li>
+                </ul>
+            </div>
+
+            <!-- SECCIÓN 5: CALENDARIO -->
+            <div class="section">
+                <h2>5. Uso del Calendario</h2>
+                
+                <h3>5.1 Navegación</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Vistas disponibles:</strong> Mes, Semana, Día, Lista</li>
+                    <li><strong>Navegación:</strong> Use las flechas ← → para cambiar de período</li>
+                    <li><strong>Hoy:</strong> Botón para volver a la fecha actual</li>
+                </ul>
+
+                <h3>5.2 Eventos en el Calendario</h3>
+                <p>Los eventos muestran:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Título: "CLASE: [Competencia] - [Instructor] - [Ambiente]"</li>
+                    <li>Hora de inicio y fin</li>
+                    <li>Código de ficha</li>
+                    <li>Color: Azul para asignaciones programadas</li>
+                </ul>
+
+                <h3>5.3 Editar/Eliminar Eventos</h3>
+                <ol class="steps">
+                    <li>Haga clic en un evento del calendario</li>
+                    <li>Se abrirá el modal con los detalles</li>
+                    <li>Para editar: Modifique los campos y haga clic en "Guardar"</li>
+                    <li>Para eliminar: Haga clic en "Eliminar" y confirme</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> Al eliminar un evento, se eliminarán TODOS los eventos relacionados de esa asignación (mismo grupo).
+                </div>
+            </div>
+
+            <!-- SECCIÓN 6: ADMINISTRACIÓN -->
+            <div class="section">
+                <h2>6. Panel de Administración</h2>
+                
+                <h3>6.1 Centro de Formación</h3>
+                <p>El administrador puede gestionar:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📋 Fichas</h4>
+                        <p>Crear, editar y eliminar fichas de formación. Asignar programas y fechas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📚 Programas</h4>
+                        <p>Gestionar programas de formación, niveles y duración.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎯 Competencias</h4>
+                        <p>Administrar competencias específicas y transversales.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏢 Sedes</h4>
+                        <p>Gestionar sedes, direcciones y contactos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🚪 Ambientes</h4>
+                        <p>Administrar aulas, laboratorios y talleres.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🏫 Instructores</h4>
+                        <p>Gestionar instructores, especialidades y registros.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 7: SOLUCIÓN DE PROBLEMAS -->
+            <div class="section">
+                <h2>7. Solución de Problemas</h2>
+                
+                <h3>7.1 No puedo iniciar sesión</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Verifique que seleccionó el rol correcto</li>
+                    <li>Asegúrese de escribir correctamente el email y contraseña</li>
+                    <li>Verifique que su cuenta esté activa</li>
+                    <li>Contacte al administrador si el problema persiste</li>
+                </ul>
+
+                <h3>7.2 No veo mis asignaciones</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Verifique que haya asignaciones creadas para su usuario</li>
+                    <li>Actualice la página (F5)</li>
+                    <li>Verifique el rango de fechas en el calendario</li>
+                </ul>
+
+                <h3>7.3 Error al guardar asignación</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Verifique que todos los campos obligatorios estén completos</li>
+                    <li>Asegúrese de seleccionar al menos un día de la semana</li>
+                    <li>Verifique que el rango de fechas sea válido</li>
+                    <li>Compruebe que no haya conflictos de horario</li>
+                </ul>
+            </div>
+
+            <!-- SECCIÓN 8: PREGUNTAS FRECUENTES -->
+            <div class="section">
+                <h2>8. Preguntas Frecuentes</h2>
+                
+                <h3>¿Puedo tener múltiples pestañas abiertas con diferentes roles?</h3>
+                <p>Sí, el sistema soporta múltiples pestañas con diferentes roles sin conflictos de sesión.</p>
+
+                <h3>¿Cómo cambio mi contraseña?</h3>
+                <p>Vaya a su perfil, haga clic en "Editar Perfil", complete los campos de cambio de contraseña y guarde.</p>
+
+                <h3>¿Las notificaciones se actualizan automáticamente?</h3>
+                <p>Sí, las notificaciones se actualizan automáticamente cada 30 segundos sin necesidad de recargar la página.</p>
+
+                <h3>¿Puedo eliminar una asignación individual?</h3>
+                <p>No, al eliminar un evento se eliminan todos los eventos relacionados de esa asignación (grupo completo).</p>
+
+                <h3>¿Cómo recupero mi contraseña?</h3>
+                <p>Haga clic en "¿Olvidaste tu contraseña? Recupérala aquí" en la página de login y siga las instrucciones.</p>
+            </div>
+
+            <!-- SECCIÓN 9: CONTACTO Y SOPORTE -->
+            <div class="section">
+                <h2>9. Contacto y Soporte</h2>
+                
+                <h3>9.1 Soporte Técnico</h3>
+                <p>Para asistencia técnica, contacte a:</p>
+                <div class="credential-item">
+                    <strong>Administrador del Sistema</strong><br>
+                    Email: spiligr1@gmail.com<br>
+                    Horario: Lunes a Viernes, 8:00 AM - 5:00 PM
+                </div>
+
+                <h3>9.2 Reportar Problemas</h3>
+                <p>Si encuentra un error o problema en el sistema:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>Tome una captura de pantalla del error</li>
+                    <li>Anote los pasos que realizó antes del error</li>
+                    <li>Envíe un correo al administrador con la información</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Sistema de Gestión Académica ProgSena</strong></p>
+            <p>Versión 3.0 | Marzo 2026</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 SENA - Todos los derechos reservados</p>
+        </div>
+    </div>
+</body>
+</html>

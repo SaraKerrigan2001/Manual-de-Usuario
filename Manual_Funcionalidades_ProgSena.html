@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Funcionalidades - ProgSena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+        }
+        .function-card {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        .function-card h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .api-endpoint {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .api-endpoint strong {
+            color: #2196F3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        .feature-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+        .feature-list li::before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Manual de Funcionalidades</h1>
+            <p>Documentación Técnica - ProgSena</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Versión 3.0 | Marzo 2026</p>
+        </div>
+
+        <div class="content">
+            <!-- FUNCIONALIDAD 1: SISTEMA DE NOTIFICACIONES -->
+            <div class="section">
+                <h2>1. Sistema de Notificaciones</h2>
+                
+                <div class="function-card">
+                    <h4>1.1 Notificaciones Bidireccionales</h4>
+                    <p><strong>Descripción:</strong> Sistema completo de notificaciones entre coordinadores e instructores.</p>
+                    
+                    <h5>Características:</h5>
+                    <ul class="feature-list">
+                        <li>Notificaciones Coordinador → Instructor</li>
+                        <li>Notificaciones Instructor → Coordinador (cambios de perfil)</li>
+                        <li>Actualización automática cada 30 segundos</li>
+                        <li>Badge con contador de notificaciones no leídas</li>
+                        <li>Tipos: General, Asignación, Cambio de Horario, Recordatorio, Urgente</li>
+                    </ul>
+
+                    <h5>Tablas de Base de Datos:</h5>
+                    <div class="code-block">
+CREATE TABLE notificaciones_instructor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    instructor_id INT NOT NULL,
+    coordinador_id INT NOT NULL,
+    tipo VARCHAR(50) DEFAULT 'general',
+    titulo VARCHAR(255) NOT NULL,
+    mensaje TEXT NOT NULL,
+    leida TINYINT(1) DEFAULT 0,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE notificaciones_coordinador (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    instructor_id INT NOT NULL,
+    coordinador_id INT NOT NULL,
+    instructor_nombre VARCHAR(200),
+    tipo VARCHAR(50) DEFAULT 'general',
+    titulo VARCHAR(255) NOT NULL,
+    mensaje TEXT NOT NULL,
+    leida TINYINT(1) DEFAULT 0,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+                    </div>
+
+                    <h5>API Endpoints:</h5>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/notificaciones.php?action=enviar_notificacion<br>
+                        Envía notificación del coordinador al instructor
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/notificaciones.php?action=enviar_notificacion_coordinador<br>
+                        Envía notificación del instructor al coordinador
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>GET</strong> /api/notificaciones.php?action=listar_notificaciones_coordinador<br>
+                        Lista notificaciones del coordinador
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 2: GESTIÓN DE ASIGNACIONES -->
+            <div class="section">
+                <h2>2. Gestión de Asignaciones</h2>
+                
+                <div class="function-card">
+                    <h4>2.1 Crear Asignaciones</h4>
+                    <p><strong>Descripción:</strong> Sistema completo para crear y gestionar asignaciones de instructores a fichas.</p>
+                    
+                    <h5>Campos del Formulario:</h5>
+                    <table>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>Ambiente</td>
+                            <td>Select</td>
+                            <td>Aula, laboratorio o taller</td>
+                        </tr>
+                        <tr>
+                            <td>Competencia</td>
+                            <td>Select</td>
+                            <td>Experiencia formativa</td>
+                        </tr>
+                        <tr>
+                            <td>Instructor</td>
+                            <td>Select</td>
+                            <td>Instructor asignado</td>
+                        </tr>
+                        <tr>
+                            <td>Ficha</td>
+                            <td>Select</td>
+                            <td>Código de ficha</td>
+                        </tr>
+                        <tr>
+                            <td>Días de la semana</td>
+                            <td>Checkboxes</td>
+                            <td>Lunes a Sábado</td>
+                        </tr>
+                        <tr>
+                            <td>Rango de fechas</td>
+                            <td>Date</td>
+                            <td>Fecha inicio y fin</td>
+                        </tr>
+                        <tr>
+                            <td>Rango de horas</td>
+                            <td>Select</td>
+                            <td>Intervalos de 15 minutos</td>
+                        </tr>
+                    </table>
+
+                    <h5>Tabla de Base de Datos:</h5>
+                    <div class="code-block">
+CREATE TABLE asignaciones (
+    asignacion_id INT AUTO_INCREMENT PRIMARY KEY,
+    ficha_id INT NOT NULL,
+    instructor_id INT NOT NULL,
+    experiencia_id INT NOT NULL,
+    ambiente_id INT DEFAULT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    hora_inicio TIME DEFAULT NULL,
+    hora_fin TIME DEFAULT NULL,
+    dias_semana VARCHAR(50) DEFAULT NULL,
+    estado ENUM('Programada', 'En Curso', 'Finalizada', 'Cancelada'),
+    observaciones TEXT DEFAULT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+                    </div>
+
+                    <h5>API Endpoints:</h5>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/asignaciones.php<br>
+                        action=crear - Crea nueva asignación
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>GET</strong> /api/asignaciones.php?action=listar<br>
+                        Lista todas las asignaciones con información completa
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/asignaciones.php<br>
+                        action=actualizar - Actualiza asignación existente
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/asignaciones.php<br>
+                        action=eliminar - Elimina asignación
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 3: CALENDARIO -->
+            <div class="section">
+                <h2>3. Sistema de Calendario</h2>
+                
+                <div class="function-card">
+                    <h4>3.1 FullCalendar Integration</h4>
+                    <p><strong>Descripción:</strong> Calendario interactivo con gestión de eventos y asignaciones.</p>
+                    
+                    <h5>Características:</h5>
+                    <ul class="feature-list">
+                        <li>Vistas: Mes, Semana, Día, Lista</li>
+                        <li>Idioma: Español</li>
+                        <li>Horario: 06:00 AM - 10:00 PM</li>
+                        <li>Eventos agrupados por asignación (groupId)</li>
+                        <li>Eliminación en grupo de eventos relacionados</li>
+                        <li>Drag & Drop para mover eventos</li>
+                        <li>Colores personalizados por tipo</li>
+                    </ul>
+
+                    <h5>Tabla de Base de Datos:</h5>
+                    <div class="code-block">
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME DEFAULT NULL,
+    user_id INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+                    </div>
+
+                    <h5>API Endpoints:</h5>
+                    <div class="api-endpoint">
+                        <strong>GET</strong> /api/calendar_events.php<br>
+                        Lista todos los eventos del calendario
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>POST</strong> /api/calendar_events.php<br>
+                        Crea nuevo evento en el calendario
+                    </div>
+                    <div class="api-endpoint">
+                        <strong>DELETE</strong> /api/calendar_events.php?id={id}<br>
+                        Elimina evento del calendario
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 4: EDICIÓN DE PERFIL -->
+            <div class="section">
+                <h2>4. Edición de Perfil del Instructor</h2>
+                
+                <div class="function-card">
+                    <h4>4.1 Actualización de Perfil</h4>
+                    <p><strong>Descripción:</strong> Sistema completo para que los instructores actualicen su información personal.</p>
+                    
+                    <h5>Campos Editables:</h5>
+                    <ul class="feature-list">
+                        <li>Nombre y Apellido</li>
+                        <li>Email</li>
+                        <li>Teléfono</li>
+                        <li>Documento</li>
+                        <li>Especialidad</li>
+                        <li>Biografía</li>
+                        <li>Cambio de contraseña (opcional)</li>
+                    </ul>
+
+                    <h5>Flujo de Actualización:</h5>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Instructor edita su perfil</li>
+                        <li>Sistema guarda cambios en la base de datos</li>
+                        <li>Se envía notificación automática al coordinador</li>
+                        <li>Coordinador revisa y aprueba cambios</li>
+                        <li>Historial de cambios se registra</li>
+                    </ol>
+
+                    <h5>Validaciones:</h5>
+                    <ul class="feature-list">
+                        <li>Campos obligatorios marcados con *</li>
+                        <li>Validación de formato de email</li>
+                        <li>Contraseñas deben coincidir</li>
+                        <li>Actualización en tiempo real sin recargar página</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 5: SISTEMA DE SESIONES -->
+            <div class="section">
+                <h2>5. Sistema de Contexto de Rol</h2>
+                
+                <div class="function-card">
+                    <h4>5.1 Múltiples Pestañas con Diferentes Roles</h4>
+                    <p><strong>Descripción:</strong> Sistema que permite trabajar con múltiples roles en pestañas separadas sin conflictos.</p>
+                    
+                    <h5>Arquitectura:</h5>
+                    <ul class="feature-list">
+                        <li>Frontend: sessionStorage para contexto por pestaña</li>
+                        <li>Backend: $_SESSION['contextos'] separados por rol</li>
+                        <li>ID único por pestaña (tabId)</li>
+                        <li>Registro de pestañas activas en localStorage</li>
+                        <li>Keep-alive automático cada 30 segundos</li>
+                        <li>Limpieza automática al cerrar pestaña</li>
+                    </ul>
+
+                    <h5>Archivos Implementados:</h5>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>role_context.php:</strong> Sistema backend de contexto</li>
+                        <li><strong>assets/js/role_context.js:</strong> Sistema frontend</li>
+                    </ul>
+
+                    <h5>Funciones Principales:</h5>
+                    <div class="code-block">
+// PHP
+inicializarContextoRol($rol)
+guardarEnContexto($rol, $clave, $valor)
+obtenerDeContexto($rol, $clave)
+verificarAccesoRol($rolRequerido)
+
+// JavaScript
+initRoleContext(rol)
+getOrCreateTabId()
+markTabActive()
+keepAlive()
+cleanup()
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 6: TRIGGERS Y VALIDACIONES -->
+            <div class="section">
+                <h2>6. Triggers y Validaciones de Base de Datos</h2>
+                
+                <div class="function-card">
+                    <h4>6.1 Triggers Implementados</h4>
+                    
+                    <h5>1. Validación de Carga Horaria:</h5>
+                    <div class="code-block">
+CREATE TRIGGER before_asignacion_insert_check
+BEFORE INSERT ON asignaciones
+FOR EACH ROW
+BEGIN
+    IF NEW.horas_semanales > 20 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: No se puede asignar más de 20 horas';
+    END IF;
+END;
+                    </div>
+
+                    <h5>2. Validación de Conflicto de Instructor:</h5>
+                    <div class="code-block">
+CREATE TRIGGER before_asignacion_instructor_check
+BEFORE INSERT ON asignaciones
+FOR EACH ROW
+BEGIN
+    -- Verifica que el instructor no tenga otra asignación
+    -- en el mismo horario y días
+END;
+                    </div>
+
+                    <h5>3. Validación de Conflicto de Ambiente:</h5>
+                    <div class="code-block">
+CREATE TRIGGER before_asignacion_ambiente_check
+BEFORE INSERT ON asignaciones
+FOR EACH ROW
+BEGIN
+    -- Verifica que el ambiente no esté ocupado
+    -- en el mismo horario y días
+END;
+                    </div>
+
+                    <h5>4. Auditoría de Cambios:</h5>
+                    <div class="code-block">
+CREATE TRIGGER after_asignacion_update_audit
+AFTER UPDATE ON asignaciones
+FOR EACH ROW
+BEGIN
+    INSERT INTO auditoria_asignaciones
+    (asignacion_id, usuario_que_creo, fecha_registro, detalles)
+    VALUES (NEW.asignacion_id, 'SISTEMA', NOW(), 
+            CONCAT('Cambio de ', OLD.estado, ' a ', NEW.estado));
+END;
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 7: OPTIMIZACIONES -->
+            <div class="section">
+                <h2>7. Optimizaciones del Sistema</h2>
+                
+                <div class="function-card">
+                    <h4>7.1 Configuración de Sesiones</h4>
+                    <p><strong>Archivo:</strong> session_config.php</p>
+                    
+                    <h5>Configuraciones Clave:</h5>
+                    <div class="code-block">
+ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_httponly', 1);
+ini_set('session.use_only_cookies', 1);
+ini_set('session.cookie_samesite', 'Lax');
+ini_set('session.gc_maxlifetime', 7200); // 2 horas
+ini_set('session.lazy_write', 1); // Clave para múltiples pestañas
+                    </div>
+
+                    <h5>Beneficios:</h5>
+                    <ul class="feature-list">
+                        <li>Múltiples pestañas sin conflictos</li>
+                        <li>Mayor seguridad</li>
+                        <li>Mejor rendimiento</li>
+                        <li>Sesiones estables</li>
+                    </ul>
+                </div>
+
+                <div class="function-card">
+                    <h4>7.2 Conexión a Base de Datos</h4>
+                    <p><strong>Archivo:</strong> connection.php</p>
+                    
+                    <h5>Optimizaciones:</h5>
+                    <div class="code-block">
+$pdo_options[PDO::ATTR_PERSISTENT] = false; // No persistente
+$pdo_options[PDO::ATTR_TIMEOUT] = 5; // Timeout 5 segundos
+$pdo_options[PDO::ATTR_AUTOCOMMIT] = 1; // Autocommit
+$pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4";
+                    </div>
+                </div>
+            </div>
+
+            <!-- FUNCIONALIDAD 8: UI/UX -->
+            <div class="section">
+                <h2>8. Mejoras de UI/UX</h2>
+                
+                <div class="function-card">
+                    <h4>8.1 Tema Oscuro/Claro</h4>
+                    <ul class="feature-list">
+                        <li>Compatible con ambos temas</li>
+                        <li>Labels visibles en ambos modos</li>
+                        <li>Colores consistentes</li>
+                        <li>Transiciones suaves</li>
+                    </ul>
+                </div>
+
+                <div class="function-card">
+                    <h4>8.2 Color Principal</h4>
+                    <p><strong>Verde esmeralda:</strong> #10b981</p>
+                    <ul class="feature-list">
+                        <li>Botones principales</li>
+                        <li>Focus en inputs</li>
+                        <li>Checkboxes</li>
+                        <li>Elementos interactivos</li>
+                    </ul>
+                </div>
+
+                <div class="function-card">
+                    <h4>8.3 Notificaciones Toastify</h4>
+                    <ul class="feature-list">
+                        <li>Reemplaza alert() nativo</li>
+                        <li>Posición: Top-right</li>
+                        <li>Duración: 3 segundos</li>
+                        <li>Tipos: success, error, info</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Manual de Funcionalidades - ProgSena</strong></p>
+            <p>Versión 3.0 | Marzo 2026</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 SENA - Documentación Técnica</p>
+        </div>
+    </div>
+</body>
+</html>
