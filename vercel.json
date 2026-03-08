@@ -9,7 +9,11 @@
   "routes": [
     {
       "src": "/",
-      "dest": "/Manual_Usuario_ProgSena.html"
+      "dest": "/index.html"
+    },
+    {
+      "src": "/documentacion-completa",
+      "dest": "/Documentacion_Completa_ProgSena.html"
     },
     {
       "src": "/manual-usuario",
