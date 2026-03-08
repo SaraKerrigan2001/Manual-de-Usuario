@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Completa - ProgSena</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        /* Sistema de Pestañas */
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #10b981;
+            overflow-x: auto;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 20px;
+            background: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s;
+            border-right: 1px solid #dee2e6;
+            min-width: 200px;
+        }
+        .tab-button:hover {
+            background: #dee2e6;
+        }
+        .tab-button.active {
+            background: white;
+            color: #10b981;
+            border-bottom: 3px solid #10b981;
+            margin-bottom: -3px;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos Comunes */
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #10b981;
+        }
+        .section h2 {
+            color: #10b981;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+        .section h3 {
+            color: #059669;
+            font-size: 1.5em;
+            margin: 20px 0 10px 0;
+        }
+        .credentials {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+        }
+        .credential-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .credential-item strong {
+            color: #10b981;
+        }
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 60px;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            background: #10b981;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .feature-card h4 {
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .info-box {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        /* Estilos SQL */
+        .sql-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .sql-block code {
+            color: #68d391;
+        }
+        .sql-comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+        .query-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        .query-card h4 {
+            color: #10b981;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        /* Tablas */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th {
+            background: #10b981;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:hover {
+            background: #f7fafc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .badge-primary { background: #e7f3ff; color: #2196F3; }
+        .badge-success { background: #d4edda; color: #28a745; }
+        .badge-warning { background: #fff3cd; color: #ffc107; }
+        .badge-danger { background: #f8d7da; color: #dc3545; }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+            .tabs { display: none; }
+            .tab-content { display: block !important; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Documentación Completa ProgSena</h1>
+            <p>Sistema de Gestión Académica</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Versión 3.0 | Marzo 2026</p>
+        </div>
+
+        <!-- Sistema de Pestañas -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'manual-usuario')">
+                👤 Manual de Usuario
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'manual-funcionalidades')">
+                ⚙️ Manual de Funcionalidades
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'reporte-consultas')">
+                🗄️ Reporte de Consultas BD
+            </button>
+        </div>
+
+        <!-- PESTAÑA 1: MANUAL DE USUARIO -->
+        <div id="manual-usuario" class="tab-content active">
+            <div class="section">
+                <h2>1. Introducción</h2>
+                <p>Bienvenido al Sistema de Gestión Académica ProgSena. Este manual le guiará a través de todas las funcionalidades del sistema.</p>
+                
+                <h3>1.1 Objetivo del Sistema</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Gestionar asignaciones de instructores a fichas</li>
+                    <li>Administrar ambientes y recursos</li>
+                    <li>Controlar competencias y experiencias formativas</li>
+                    <li>Visualizar calendarios de asignaciones</li>
+                    <li>Enviar y recibir notificaciones</li>
+                </ul>
+
+                <h3>1.2 Roles del Sistema</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>👨‍💼 Administrador</h4>
+                        <p>Acceso completo al sistema. Puede gestionar usuarios, sedes, programas y configuraciones.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🏫 Coordinador</h4>
+                        <p>Gestiona asignaciones, envía notificaciones a instructores, administra fichas y ambientes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🎓 Instructor</h4>
+                        <p>Visualiza sus asignaciones, recibe notificaciones, actualiza su perfil y consulta su calendario.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2. Acceso al Sistema</h2>
+                
+                <h3>2.1 Credenciales de Acceso</h3>
+                <div class="credentials">
+                    <h4>Usuarios del Sistema:</h4>
+                    
+                    <div class="credential-item">
+                        <strong>Administrador</strong><br>
+                        Email: spiligr1@gmail.com<br>
+                        Contraseña: 12345678<br>
+                        Rol: Administrador
+                    </div>
+                    
+                    <div class="credential-item">
+                        <strong>Coordinador</strong><br>
+                        Email: maria.gonzalez@sena.edu.co<br>
+                        Contraseña: maria123<br>
+                        Rol: Coordinador
+                    </div>
+                    
+                    <div class="credential-item">
+                        <strong>Instructor</strong><br>
+                        Email: josevera@gmail.com<br>
+                        Contraseña: jose123<br>
+                        Rol: Instructor
+                    </div>
+                </div>
+
+                <h3>2.2 Pasos para Iniciar Sesión</h3>
+                <ol class="steps">
+                    <li>Abra su navegador web (Chrome, Firefox, Edge)</li>
+                    <li>Ingrese a la URL del sistema</li>
+                    <li>Seleccione su rol en el dropdown "ROL DE USUARIO"</li>
+                    <li>Ingrese su correo institucional</li>
+                    <li>Ingrese su contraseña</li>
+                    <li>Haga clic en "Iniciar Sesión Segura"</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> Asegúrese de seleccionar el rol correcto antes de iniciar sesión.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3. Dashboard del Coordinador</h2>
+                
+                <h3>3.1 Crear Nueva Asignación</h3>
+                <ol class="steps">
+                    <li>Haga clic en "+ Nueva Asignación" o en una fecha del calendario</li>
+                    <li>Complete el formulario con ambiente, competencia, instructor y ficha</li>
+                    <li>Seleccione días de la semana y rango de fechas</li>
+                    <li>Defina el rango de horas</li>
+                    <li>Haga clic en "Guardar"</li>
+                </ol>
+
+                <h3>3.2 Enviar Notificaciones</h3>
+                <ol class="steps">
+                    <li>Haga clic en "Notificar Instructor"</li>
+                    <li>Seleccione el instructor</li>
+                    <li>Elija el tipo de notificación</li>
+                    <li>Complete título y mensaje</li>
+                    <li>Haga clic en "Enviar Notificación"</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>4. Dashboard del Instructor</h2>
+                
+                <h3>4.1 Editar Perfil</h3>
+                <ol class="steps">
+                    <li>Haga clic en "Editar Perfil"</li>
+                    <li>Actualice los campos deseados</li>
+                    <li>Opcionalmente cambie su contraseña</li>
+                    <li>Haga clic en "Guardar Cambios"</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>⚠️ Nota:</strong> Los cambios se envían automáticamente al coordinador para revisión.
+                </div>
+
+                <h3>4.2 Gestionar Notificaciones</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Ver notificaciones no leídas (badge rojo)</li>
+                    <li>Marcar como leída</li>
+                    <li>Eliminar notificaciones</li>
+                    <li>Actualización automática cada 30 segundos</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>5. Preguntas Frecuentes</h2>
+                
+                <h3>¿Puedo tener múltiples pestañas abiertas?</h3>
+                <p>Sí, el sistema soporta múltiples pestañas con diferentes roles sin conflictos.</p>
+
+                <h3>¿Cómo cambio mi contraseña?</h3>
+                <p>Vaya a su perfil, haga clic en "Editar Perfil" y complete los campos de cambio de contraseña.</p>
+
+                <h3>¿Las notificaciones se actualizan automáticamente?</h3>
+                <p>Sí, cada 30 segundos sin necesidad de recargar la página.</p>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: MANUAL DE FUNCIONALIDADES -->
+        <div id="manual-funcionalidades" class="tab-content">
+            <div class="section">
+                <h2>1. Sistema de Notificaciones</h2>
+                
+                <h3>1.1 Notificaciones Coordinador → Instructor</h3>
+                <p>El coordinador puede enviar notificaciones a instructores con los siguientes tipos:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>General:</strong> Información general del sistema</li>
+                    <li><strong>Asignación:</strong> Nueva asignación de clase</li>
+                    <li><strong>Cambio de Horario:</strong> Modificación de horarios</li>
+                    <li><strong>Recordatorio:</strong> Recordatorios importantes</li>
+                    <li><strong>Urgente:</strong> Mensajes de alta prioridad</li>
+                </ul>
+
+                <h3>1.2 Notificaciones Instructor → Coordinador</h3>
+                <p>Cuando un instructor edita su perfil, se envía automáticamente una notificación al coordinador para revisión.</p>
+                
+                <div class="success">
+                    <strong>✅ Características:</strong><br>
+                    • Actualización automática cada 30 segundos<br>
+                    • Badge con contador de notificaciones no leídas<br>
+                    • Estados visuales (Pendiente/Revisada)<br>
+                    • Sin recargar página (AJAX)
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2. Gestión de Asignaciones</h2>
+                
+                <h3>2.1 Crear Asignación</h3>
+                <p>El sistema permite crear asignaciones con los siguientes campos:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Descripción</th>
+                                <th>Obligatorio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ambiente</td>
+                                <td>Aula o laboratorio</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Competencia</td>
+                                <td>Experiencia formativa</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Instructor</td>
+                                <td>Instructor asignado</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ficha</td>
+                                <td>Código de ficha</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Días de la semana</td>
+                                <td>Lunes a Sábado</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rango de fechas</td>
+                                <td>Fecha inicio y fin</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rango de horas</td>
+                                <td>Hora inicio y fin</td>
+                                <td><span class="badge badge-danger">Sí</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.2 Validaciones Automáticas</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Conflictos de horario de instructores</li>
+                    <li>Conflictos de ocupación de ambientes</li>
+                    <li>Carga horaria máxima (20 horas por asignación)</li>
+                    <li>Validación de fechas</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>3. Calendario de Eventos</h2>
+                
+                <h3>3.1 Características</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📅 Vistas Múltiples</h4>
+                        <p>Mes, Semana, Día y Lista</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎨 Código de Colores</h4>
+                        <p>Eventos diferenciados por tipo</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🔄 Actualización Automática</h4>
+                        <p>Sincronización en tiempo real</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📝 Edición Rápida</h4>
+                        <p>Click en evento para editar</p>
+                    </div>
+                </div>
+
+                <h3>3.2 Gestión de Eventos</h3>
+                <p>Al crear una asignación, el sistema genera automáticamente eventos en el calendario para cada día seleccionado.</p>
+                
+                <div class="warning">
+                    <strong>⚠️ Importante:</strong> Al eliminar un evento, se eliminan TODOS los eventos relacionados de esa asignación.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>4. Sistema de Perfil</h2>
+                
+                <h3>4.1 Campos Editables</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Nombre y Apellido</li>
+                    <li>Email</li>
+                    <li>Teléfono</li>
+                    <li>Documento</li>
+                    <li>Especialidad</li>
+                    <li>Biografía</li>
+                    <li>Cambio de contraseña (opcional)</li>
+                </ul>
+
+                <h3>4.2 Historial de Cambios</h3>
+                <p>El sistema mantiene un historial de las últimas 4 modificaciones del perfil con:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Fecha y hora del cambio</li>
+                    <li>Estado (Pendiente/Aprobado)</li>
+                    <li>Descripción del cambio</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>5. Administración del Sistema</h2>
+                
+                <h3>5.1 Módulos Disponibles</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>📋 Fichas</h4>
+                        <p>Gestión de fichas de formación</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>📚 Programas</h4>
+                        <p>Administración de programas</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🎯 Competencias</h4>
+                        <p>Gestión de competencias</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🏢 Sedes</h4>
+                        <p>Administración de sedes</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>🚪 Ambientes</h4>
+                        <p>Gestión de ambientes</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>👨‍🏫 Instructores</h4>
+                        <p>Administración de instructores</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>6. Características Técnicas</h2>
+                
+                <h3>6.1 Seguridad</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Contraseñas hasheadas con bcrypt</li>
+                    <li>Sesiones seguras con regeneración de ID</li>
+                    <li>Cookies HttpOnly y SameSite</li>
+                    <li>Prepared statements en SQL</li>
+                    <li>Validación de inputs</li>
+                </ul>
+
+                <h3>6.2 Rendimiento</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Conexiones optimizadas a BD</li>
+                    <li>Carga dinámica de datos</li>
+                    <li>Actualización sin recargar página</li>
+                    <li>Índices en consultas frecuentes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: REPORTE DE CONSULTAS BD -->
+        <div id="reporte-consultas" class="tab-content">
+            <div class="section">
+                <h2>1. Información General de la Base de Datos</h2>
+                
+                <div class="info-box">
+                    <strong>📊 Configuración:</strong><br>
+                    <strong>Nombre:</strong> cphpmysql<br>
+                    <strong>Servidor:</strong> 127.0.0.1:3306<br>
+                    <strong>Usuario:</strong> root<br>
+                    <strong>Charset:</strong> utf8mb4
+                </div>
+
+                <h3>1.1 Estructura de Tablas</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tabla</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><span class="badge badge-primary">usuarios</span></td>
+                                <td>Sistema de autenticación</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><span class="badge badge-primary">instructores</span></td>
+                                <td>Instructores registrados</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><span class="badge badge-primary">fichas</span></td>
+                                <td>Fichas de formación</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><span class="badge badge-primary">asignaciones</span></td>
+                                <td>Asignaciones instructor-ficha</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><span class="badge badge-primary">ambientes</span></td>
+                                <td>Aulas y laboratorios</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><span class="badge badge-primary">experiencias</span></td>
+                                <td>Competencias formativas</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><span class="badge badge-success">notificaciones_instructor</span></td>
+                                <td>Notificaciones Coordinador → Instructor</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><span class="badge badge-success">notificaciones_coordinador</span></td>
+                                <td>Notificaciones Instructor → Coordinador</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><span class="badge badge-warning">events</span></td>
+                                <td>Eventos del calendario</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><span class="badge badge-danger">auditoria_asignaciones</span></td>
+                                <td>Auditoría de cambios</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>2. Consultas de Autenticación</h2>
+                
+                <div class="query-card">
+                    <h4>2.1 Verificar Credenciales de Usuario</h4>
+                    <p>Consulta utilizada en el login para validar email y contraseña.</p>
+                    <div class="sql-block">
+<span class="sql-comment">-- Verificar usuario por email</span>
+<code>SELECT usuario_id, nombre, email, rol, activo
+FROM usuarios
+WHERE email = ? 
+  AND activo = 1;</code>
+
+<span class="sql-comment">-- Verificar password con password_verify() en PHP</span>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>2.2 Listar Todos los Usuarios</h4>
+                    <div class="sql-block">
+<code>SELECT 
+    usuario_id,
+    nombre,
+    email,
+    rol,
+    CASE WHEN activo = 1 THEN 'Activo' ELSE 'Inactivo' END AS estado
+FROM usuarios
+ORDER BY usuario_id;</code>
+                    </div>
+                </div>
+
+                <div class="success">
+                    <strong>✅ Credenciales del Sistema:</strong><br>
+                    <strong>Administrador:</strong> spiligr1@gmail.com / 12345678<br>
+                    <strong>Coordinador:</strong> maria.gonzalez@sena.edu.co / maria123<br>
+                    <strong>Instructor:</strong> josevera@gmail.com / jose123
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>3. Consultas de Asignaciones</h2>
+                
+                <div class="query-card">
+                    <h4>3.1 Listar Asignaciones Completas con JOIN</h4>
+                    <p>Consulta principal con toda la información relacionada.</p>
+                    <div class="sql-block">
+<code>SELECT 
+    a.asignacion_id,
+    f.codigo_ficha,
+    f.programa,
+    CONCAT(i.nombre, ' ', i.apellido) AS instructor,
+    e.nombre_experiencia AS competencia,
+    amb.nombre_ambiente AS ambiente,
+    a.fecha_inicio,
+    a.fecha_fin,
+    a.estado
+FROM asignaciones a
+INNER JOIN fichas f ON a.ficha_id = f.ficha_id
+INNER JOIN instructores i ON a.instructor_id = i.id
+INNER JOIN experiencias e ON a.experiencia_id = e.experiencia_id
+LEFT JOIN ambientes amb ON a.ambiente_id = amb.ambiente_id
+ORDER BY a.fecha_inicio DESC;</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>3.2 Verificar Conflictos de Horario</h4>
+                    <p>Detectar si un instructor ya tiene asignación en el horario propuesto.</p>
+                    <div class="sql-block">
+<code>SELECT COUNT(*) as conflictos
+FROM asignaciones
+WHERE instructor_id = ?
+  AND (? BETWEEN hora_inicio AND hora_fin)
+  AND dias_semana LIKE CONCAT('%', ?, '%')
+  AND ? <= fecha_fin
+  AND ? >= fecha_inicio;</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>4. Consultas de Notificaciones</h2>
+                
+                <div class="query-card">
+                    <h4>4.1 Listar Notificaciones del Instructor</h4>
+                    <div class="sql-block">
+<code>SELECT 
+    id,
+    tipo,
+    titulo,
+    mensaje,
+    leida,
+    DATE_FORMAT(fecha_creacion, '%d/%m/%Y %H:%i') as fecha
+FROM notificaciones_instructor
+WHERE instructor_id = ?
+ORDER BY fecha_creacion DESC
+LIMIT 20;</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>4.2 Contar Notificaciones No Leídas</h4>
+                    <div class="sql-block">
+<code>SELECT COUNT(*) as no_leidas
+FROM notificaciones_instructor
+WHERE instructor_id = ?
+  AND leida = 0;</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>4.3 Enviar Notificación</h4>
+                    <div class="sql-block">
+<code>INSERT INTO notificaciones_instructor 
+    (instructor_id, coordinador_id, tipo, titulo, mensaje, leida)
+VALUES 
+    (?, ?, ?, ?, ?, 0);</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>5. Consultas de Reportes</h2>
+                
+                <div class="query-card">
+                    <h4>5.1 Dashboard - Estadísticas Generales</h4>
+                    <div class="sql-block">
+<code>SELECT 
+    (SELECT COUNT(*) FROM instructores) AS total_instructores,
+    (SELECT COUNT(*) FROM fichas WHERE estado = 'Activa') AS fichas_activas,
+    (SELECT COUNT(*) FROM asignaciones WHERE estado IN ('Programada', 'En Curso')) AS asignaciones_activas,
+    (SELECT COUNT(*) FROM ambientes WHERE estado = 'Disponible') AS ambientes_disponibles;</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>5.2 Carga Horaria por Instructor</h4>
+                    <div class="sql-block">
+<code>SELECT 
+    CONCAT(i.nombre, ' ', i.apellido) AS instructor,
+    COUNT(a.asignacion_id) AS total_asignaciones,
+    SUM(a.horas_semanales) AS horas_semanales_total
+FROM instructores i
+LEFT JOIN asignaciones a ON i.id = a.instructor_id
+WHERE a.estado IN ('Programada', 'En Curso')
+GROUP BY i.id
+ORDER BY horas_semanales_total DESC;</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>6. Índices y Optimización</h2>
+                
+                <h3>6.1 Índices Existentes</h3>
+                <div class="sql-block">
+<span class="sql-comment">-- Tabla usuarios</span>
+<code>INDEX idx_email (email)
+INDEX idx_rol (rol)</code>
+
+<span class="sql-comment">-- Tabla asignaciones</span>
+<code>INDEX idx_ficha (ficha_id)
+INDEX idx_instructor (instructor_id)
+INDEX idx_experiencia (experiencia_id)</code>
+
+<span class="sql-comment">-- Tabla notificaciones</span>
+<code>INDEX idx_instructor (instructor_id)
+INDEX idx_leida (leida)</code>
+                </div>
+
+                <h3>6.2 Verificar Uso de Índices</h3>
+                <div class="sql-block">
+<code>EXPLAIN SELECT * 
+FROM asignaciones 
+WHERE instructor_id = 1 
+  AND estado = 'En Curso';</code>
+                </div>
+
+                <div class="success">
+                    <strong>✅ Buenas Prácticas:</strong><br>
+                    • Use índices en columnas de JOIN<br>
+                    • Indexe columnas usadas en WHERE<br>
+                    • Evite SELECT * en producción<br>
+                    • Use LIMIT en consultas grandes<br>
+                    • Monitoree con EXPLAIN
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>7. Backup y Mantenimiento</h2>
+                
+                <div class="query-card">
+                    <h4>7.1 Crear Backup Completo</h4>
+                    <div class="sql-block">
+<span class="sql-comment">-- Desde línea de comandos</span>
+<code>mysqldump -u root -p cphpmysql > backup.sql</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>7.2 Restaurar desde Backup</h4>
+                    <div class="sql-block">
+<code>mysql -u root -p cphpmysql < backup.sql</code>
+                    </div>
+                </div>
+
+                <div class="query-card">
+                    <h4>7.3 Optimizar Tablas</h4>
+                    <div class="sql-block">
+<code>OPTIMIZE TABLE asignaciones;
+OPTIMIZE TABLE notificaciones_instructor;
+ANALYZE TABLE asignaciones;</code>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>📅 Recomendación:</strong><br>
+                    • Backup diario automático<br>
+                    • Backup semanal completo<br>
+                    • Almacenar en ubicación segura<br>
+                    • Probar restauración periódicamente
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Sistema de Gestión Académica ProgSena</strong></p>
+            <p>Documentación Completa - Versión 3.0 | Marzo 2026</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">© 2026 SENA - Todos los derechos reservados</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Ocultar todos los contenidos de pestañas
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remover clase active de todos los botones
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Mostrar el contenido de la pestaña actual
+            document.getElementById(tabName).classList.add("active");
+            
+            // Agregar clase active al botón clickeado
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
