@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/Manual_Usuario_ProgSena.html"
+    },
+    {
+      "src": "/manual-usuario",
+      "dest": "/Manual_Usuario_ProgSena.html"
+    },
+    {
+      "src": "/manual-funcionalidades",
+      "dest": "/Manual_Funcionalidades_ProgSena.html"
+    },
+    {
+      "src": "/reporte-consultas",
+      "dest": "/Reporte_Consultas_BD_ProgSena.html"
+    }
+  ]
+}
