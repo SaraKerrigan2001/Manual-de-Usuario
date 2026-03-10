@@ -1,71 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual de Funcionalidades - ProgSena</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             padding: 20px;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
+
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 40px;
             text-align: center;
         }
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
         }
+
         .content {
             padding: 40px;
         }
+
         .section {
             margin-bottom: 40px;
             padding: 30px;
             background: #f8f9fa;
             border-radius: 10px;
-            border-left: 5px solid #667eea;
+            border-left: 5px solid #5b21b6;
         }
+
         .section h2 {
-            color: #667eea;
+            color: #5b21b6;
             font-size: 2em;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #5b21b6;
         }
+
         .section h3 {
-            color: #764ba2;
+            color: #4c1d95;
             font-size: 1.5em;
             margin: 20px 0 10px 0;
         }
+
         .function-card {
             background: white;
             padding: 25px;
             margin: 20px 0;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            border-left: 4px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #5b21b6;
         }
+
         .function-card h4 {
-            color: #667eea;
+            color: #5b21b6;
             font-size: 1.3em;
             margin-bottom: 15px;
         }
+
         .code-block {
             background: #2d2d2d;
             color: #f8f8f2;
@@ -75,6 +91,7 @@
             margin: 15px 0;
             font-family: 'Courier New', monospace;
         }
+
         .api-endpoint {
             background: #e7f3ff;
             padding: 15px;
@@ -82,44 +99,53 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .api-endpoint strong {
             color: #2196F3;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
+
         table th {
-            background: #667eea;
+            background: #5b21b6;
             color: white;
             padding: 12px;
             text-align: left;
         }
+
         table td {
             padding: 12px;
             border: 1px solid #ddd;
         }
+
         table tr:nth-child(even) {
             background: #f8f9fa;
         }
+
         .feature-list {
             list-style: none;
             padding: 0;
         }
+
         .feature-list li {
             padding: 10px;
             margin: 5px 0;
             background: white;
             border-radius: 5px;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid #5b21b6;
         }
+
         .feature-list li::before {
             content: "✓ ";
             color: #28a745;
             font-weight: bold;
             margin-right: 10px;
         }
+
         .footer {
             background: #2c3e50;
             color: white;
@@ -128,6 +154,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -140,11 +167,12 @@
             <!-- FUNCIONALIDAD 1: SISTEMA DE NOTIFICACIONES -->
             <div class="section">
                 <h2>1. Sistema de Notificaciones</h2>
-                
+
                 <div class="function-card">
                     <h4>1.1 Notificaciones Bidireccionales</h4>
-                    <p><strong>Descripción:</strong> Sistema completo de notificaciones entre coordinadores e instructores.</p>
-                    
+                    <p><strong>Descripción:</strong> Sistema completo de notificaciones entre coordinadores e
+                        instructores.</p>
+
                     <h5>Características:</h5>
                     <ul class="feature-list">
                         <li>Notificaciones Coordinador → Instructor</li>
@@ -156,28 +184,28 @@
 
                     <h5>Tablas de Base de Datos:</h5>
                     <div class="code-block">
-CREATE TABLE notificaciones_instructor (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    instructor_id INT NOT NULL,
-    coordinador_id INT NOT NULL,
-    tipo VARCHAR(50) DEFAULT 'general',
-    titulo VARCHAR(255) NOT NULL,
-    mensaje TEXT NOT NULL,
-    leida TINYINT(1) DEFAULT 0,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+                        CREATE TABLE notificaciones_instructor (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        instructor_id INT NOT NULL,
+                        coordinador_id INT NOT NULL,
+                        tipo VARCHAR(50) DEFAULT 'general',
+                        titulo VARCHAR(255) NOT NULL,
+                        mensaje TEXT NOT NULL,
+                        leida TINYINT(1) DEFAULT 0,
+                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
 
-CREATE TABLE notificaciones_coordinador (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    instructor_id INT NOT NULL,
-    coordinador_id INT NOT NULL,
-    instructor_nombre VARCHAR(200),
-    tipo VARCHAR(50) DEFAULT 'general',
-    titulo VARCHAR(255) NOT NULL,
-    mensaje TEXT NOT NULL,
-    leida TINYINT(1) DEFAULT 0,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+                        CREATE TABLE notificaciones_coordinador (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        instructor_id INT NOT NULL,
+                        coordinador_id INT NOT NULL,
+                        instructor_nombre VARCHAR(200),
+                        tipo VARCHAR(50) DEFAULT 'general',
+                        titulo VARCHAR(255) NOT NULL,
+                        mensaje TEXT NOT NULL,
+                        leida TINYINT(1) DEFAULT 0,
+                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
                     </div>
 
                     <h5>API Endpoints:</h5>
@@ -199,11 +227,12 @@ CREATE TABLE notificaciones_coordinador (
             <!-- FUNCIONALIDAD 2: GESTIÓN DE ASIGNACIONES -->
             <div class="section">
                 <h2>2. Gestión de Asignaciones</h2>
-                
+
                 <div class="function-card">
                     <h4>2.1 Crear Asignaciones</h4>
-                    <p><strong>Descripción:</strong> Sistema completo para crear y gestionar asignaciones de instructores a fichas.</p>
-                    
+                    <p><strong>Descripción:</strong> Sistema completo para crear y gestionar asignaciones de
+                        instructores a fichas.</p>
+
                     <h5>Campos del Formulario:</h5>
                     <table>
                         <tr>
@@ -250,21 +279,21 @@ CREATE TABLE notificaciones_coordinador (
 
                     <h5>Tabla de Base de Datos:</h5>
                     <div class="code-block">
-CREATE TABLE asignaciones (
-    asignacion_id INT AUTO_INCREMENT PRIMARY KEY,
-    ficha_id INT NOT NULL,
-    instructor_id INT NOT NULL,
-    experiencia_id INT NOT NULL,
-    ambiente_id INT DEFAULT NULL,
-    fecha_inicio DATE NOT NULL,
-    fecha_fin DATE NOT NULL,
-    hora_inicio TIME DEFAULT NULL,
-    hora_fin TIME DEFAULT NULL,
-    dias_semana VARCHAR(50) DEFAULT NULL,
-    estado ENUM('Programada', 'En Curso', 'Finalizada', 'Cancelada'),
-    observaciones TEXT DEFAULT NULL,
-    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+                        CREATE TABLE asignaciones (
+                        asignacion_id INT AUTO_INCREMENT PRIMARY KEY,
+                        ficha_id INT NOT NULL,
+                        instructor_id INT NOT NULL,
+                        experiencia_id INT NOT NULL,
+                        ambiente_id INT DEFAULT NULL,
+                        fecha_inicio DATE NOT NULL,
+                        fecha_fin DATE NOT NULL,
+                        hora_inicio TIME DEFAULT NULL,
+                        hora_fin TIME DEFAULT NULL,
+                        dias_semana VARCHAR(50) DEFAULT NULL,
+                        estado ENUM('Programada', 'En Curso', 'Finalizada', 'Cancelada'),
+                        observaciones TEXT DEFAULT NULL,
+                        fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
                     </div>
 
                     <h5>API Endpoints:</h5>
@@ -290,11 +319,11 @@ CREATE TABLE asignaciones (
             <!-- FUNCIONALIDAD 3: CALENDARIO -->
             <div class="section">
                 <h2>3. Sistema de Calendario</h2>
-                
+
                 <div class="function-card">
                     <h4>3.1 FullCalendar Integration</h4>
                     <p><strong>Descripción:</strong> Calendario interactivo con gestión de eventos y asignaciones.</p>
-                    
+
                     <h5>Características:</h5>
                     <ul class="feature-list">
                         <li>Vistas: Mes, Semana, Día, Lista</li>
@@ -308,14 +337,14 @@ CREATE TABLE asignaciones (
 
                     <h5>Tabla de Base de Datos:</h5>
                     <div class="code-block">
-CREATE TABLE events (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    start_date DATETIME NOT NULL,
-    end_date DATETIME DEFAULT NULL,
-    user_id INT DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+                        CREATE TABLE events (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        title VARCHAR(255) NOT NULL,
+                        start_date DATETIME NOT NULL,
+                        end_date DATETIME DEFAULT NULL,
+                        user_id INT DEFAULT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                        );
                     </div>
 
                     <h5>API Endpoints:</h5>
@@ -337,11 +366,12 @@ CREATE TABLE events (
             <!-- FUNCIONALIDAD 4: EDICIÓN DE PERFIL -->
             <div class="section">
                 <h2>4. Edición de Perfil del Instructor</h2>
-                
+
                 <div class="function-card">
                     <h4>4.1 Actualización de Perfil</h4>
-                    <p><strong>Descripción:</strong> Sistema completo para que los instructores actualicen su información personal.</p>
-                    
+                    <p><strong>Descripción:</strong> Sistema completo para que los instructores actualicen su
+                        información personal.</p>
+
                     <h5>Campos Editables:</h5>
                     <ul class="feature-list">
                         <li>Nombre y Apellido</li>
@@ -375,11 +405,12 @@ CREATE TABLE events (
             <!-- FUNCIONALIDAD 5: SISTEMA DE SESIONES -->
             <div class="section">
                 <h2>5. Sistema de Contexto de Rol</h2>
-                
+
                 <div class="function-card">
                     <h4>5.1 Múltiples Pestañas con Diferentes Roles</h4>
-                    <p><strong>Descripción:</strong> Sistema que permite trabajar con múltiples roles en pestañas separadas sin conflictos.</p>
-                    
+                    <p><strong>Descripción:</strong> Sistema que permite trabajar con múltiples roles en pestañas
+                        separadas sin conflictos.</p>
+
                     <h5>Arquitectura:</h5>
                     <ul class="feature-list">
                         <li>Frontend: sessionStorage para contexto por pestaña</li>
@@ -398,18 +429,18 @@ CREATE TABLE events (
 
                     <h5>Funciones Principales:</h5>
                     <div class="code-block">
-// PHP
-inicializarContextoRol($rol)
-guardarEnContexto($rol, $clave, $valor)
-obtenerDeContexto($rol, $clave)
-verificarAccesoRol($rolRequerido)
+                        // PHP
+                        inicializarContextoRol($rol)
+                        guardarEnContexto($rol, $clave, $valor)
+                        obtenerDeContexto($rol, $clave)
+                        verificarAccesoRol($rolRequerido)
 
-// JavaScript
-initRoleContext(rol)
-getOrCreateTabId()
-markTabActive()
-keepAlive()
-cleanup()
+                        // JavaScript
+                        initRoleContext(rol)
+                        getOrCreateTabId()
+                        markTabActive()
+                        keepAlive()
+                        cleanup()
                     </div>
                 </div>
             </div>
@@ -417,56 +448,56 @@ cleanup()
             <!-- FUNCIONALIDAD 6: TRIGGERS Y VALIDACIONES -->
             <div class="section">
                 <h2>6. Triggers y Validaciones de Base de Datos</h2>
-                
+
                 <div class="function-card">
                     <h4>6.1 Triggers Implementados</h4>
-                    
+
                     <h5>1. Validación de Carga Horaria:</h5>
                     <div class="code-block">
-CREATE TRIGGER before_asignacion_insert_check
-BEFORE INSERT ON asignaciones
-FOR EACH ROW
-BEGIN
-    IF NEW.horas_semanales > 20 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: No se puede asignar más de 20 horas';
-    END IF;
-END;
+                        CREATE TRIGGER before_asignacion_insert_check
+                        BEFORE INSERT ON asignaciones
+                        FOR EACH ROW
+                        BEGIN
+                        IF NEW.horas_semanales > 20 THEN
+                        SIGNAL SQLSTATE '45000'
+                        SET MESSAGE_TEXT = 'Error: No se puede asignar más de 20 horas';
+                        END IF;
+                        END;
                     </div>
 
                     <h5>2. Validación de Conflicto de Instructor:</h5>
                     <div class="code-block">
-CREATE TRIGGER before_asignacion_instructor_check
-BEFORE INSERT ON asignaciones
-FOR EACH ROW
-BEGIN
-    -- Verifica que el instructor no tenga otra asignación
-    -- en el mismo horario y días
-END;
+                        CREATE TRIGGER before_asignacion_instructor_check
+                        BEFORE INSERT ON asignaciones
+                        FOR EACH ROW
+                        BEGIN
+                        -- Verifica que el instructor no tenga otra asignación
+                        -- en el mismo horario y días
+                        END;
                     </div>
 
                     <h5>3. Validación de Conflicto de Ambiente:</h5>
                     <div class="code-block">
-CREATE TRIGGER before_asignacion_ambiente_check
-BEFORE INSERT ON asignaciones
-FOR EACH ROW
-BEGIN
-    -- Verifica que el ambiente no esté ocupado
-    -- en el mismo horario y días
-END;
+                        CREATE TRIGGER before_asignacion_ambiente_check
+                        BEFORE INSERT ON asignaciones
+                        FOR EACH ROW
+                        BEGIN
+                        -- Verifica que el ambiente no esté ocupado
+                        -- en el mismo horario y días
+                        END;
                     </div>
 
                     <h5>4. Auditoría de Cambios:</h5>
                     <div class="code-block">
-CREATE TRIGGER after_asignacion_update_audit
-AFTER UPDATE ON asignaciones
-FOR EACH ROW
-BEGIN
-    INSERT INTO auditoria_asignaciones
-    (asignacion_id, usuario_que_creo, fecha_registro, detalles)
-    VALUES (NEW.asignacion_id, 'SISTEMA', NOW(), 
-            CONCAT('Cambio de ', OLD.estado, ' a ', NEW.estado));
-END;
+                        CREATE TRIGGER after_asignacion_update_audit
+                        AFTER UPDATE ON asignaciones
+                        FOR EACH ROW
+                        BEGIN
+                        INSERT INTO auditoria_asignaciones
+                        (asignacion_id, usuario_que_creo, fecha_registro, detalles)
+                        VALUES (NEW.asignacion_id, 'SISTEMA', NOW(),
+                        CONCAT('Cambio de ', OLD.estado, ' a ', NEW.estado));
+                        END;
                     </div>
                 </div>
             </div>
@@ -474,19 +505,19 @@ END;
             <!-- FUNCIONALIDAD 7: OPTIMIZACIONES -->
             <div class="section">
                 <h2>7. Optimizaciones del Sistema</h2>
-                
+
                 <div class="function-card">
                     <h4>7.1 Configuración de Sesiones</h4>
                     <p><strong>Archivo:</strong> session_config.php</p>
-                    
+
                     <h5>Configuraciones Clave:</h5>
                     <div class="code-block">
-ini_set('session.use_strict_mode', 1);
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
-ini_set('session.cookie_samesite', 'Lax');
-ini_set('session.gc_maxlifetime', 7200); // 2 horas
-ini_set('session.lazy_write', 1); // Clave para múltiples pestañas
+                        ini_set('session.use_strict_mode', 1);
+                        ini_set('session.cookie_httponly', 1);
+                        ini_set('session.use_only_cookies', 1);
+                        ini_set('session.cookie_samesite', 'Lax');
+                        ini_set('session.gc_maxlifetime', 7200); // 2 horas
+                        ini_set('session.lazy_write', 1); // Clave para múltiples pestañas
                     </div>
 
                     <h5>Beneficios:</h5>
@@ -501,13 +532,13 @@ ini_set('session.lazy_write', 1); // Clave para múltiples pestañas
                 <div class="function-card">
                     <h4>7.2 Conexión a Base de Datos</h4>
                     <p><strong>Archivo:</strong> connection.php</p>
-                    
+
                     <h5>Optimizaciones:</h5>
                     <div class="code-block">
-$pdo_options[PDO::ATTR_PERSISTENT] = false; // No persistente
-$pdo_options[PDO::ATTR_TIMEOUT] = 5; // Timeout 5 segundos
-$pdo_options[PDO::ATTR_AUTOCOMMIT] = 1; // Autocommit
-$pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4";
+                        $pdo_options[PDO::ATTR_PERSISTENT] = false; // No persistente
+                        $pdo_options[PDO::ATTR_TIMEOUT] = 5; // Timeout 5 segundos
+                        $pdo_options[PDO::ATTR_AUTOCOMMIT] = 1; // Autocommit
+                        $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4";
                     </div>
                 </div>
             </div>
@@ -515,7 +546,7 @@ $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4";
             <!-- FUNCIONALIDAD 8: UI/UX -->
             <div class="section">
                 <h2>8. Mejoras de UI/UX</h2>
-                
+
                 <div class="function-card">
                     <h4>8.1 Tema Oscuro/Claro</h4>
                     <ul class="feature-list">
@@ -556,4 +587,5 @@ $pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8mb4";
         </div>
     </div>
 </body>
+
 </html>

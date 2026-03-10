@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Coordinador SENA - Gestión Integral</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+        .nav-item.active { background-color: white; color: #39A900; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .modal { display: none; position: fixed; z-index: 50; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background-color: white; border-radius: 20px; padding: 30px; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden">
+
+    <aside class="w-72 bg-[#e2f3e4] flex flex-col border-r border-gray-200">
+        <div class="p-6 flex items-center space-x-2">
+            <div class="bg-[#39A900] p-2 rounded-lg">
+                <i class="fas fa-graduation-cap text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold text-slate-800">SENA Gestión</span>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-1 mt-2 overflow-y-auto custom-scrollbar">
+            <p class="text-xs font-bold text-gray-500 uppercase px-2 mb-2 mt-4">Panel Principal</p>
+            <button onclick="showSection('resumen')" class="nav-item active w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-th-large"></i><span>Resumen Académico</span>
+            </button>
+            
+            <p class="text-xs font-bold text-gray-500 uppercase px-2 mb-2 mt-6">Talento Humano</p>
+            <button onclick="showSection('aprendices')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-user-graduate"></i><span>Aprendices</span>
+            </button>
+            <button onclick="showSection('instructores')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-chalkboard-teacher"></i><span>Instructores</span>
+            </button>
+
+            <p class="text-xs font-bold text-gray-500 uppercase px-2 mb-2 mt-6">Infraestructura y Programas</p>
+            <button onclick="showSection('fichas')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-layer-group"></i><span>Fichas</span>
+            </button>
+            <button onclick="showSection('sedes')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-map-marker-alt"></i><span>Sedes</span>
+            </button>
+            <button onclick="showSection('ambientes')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-door-open"></i><span>Ambientes</span>
+            </button>
+            <button onclick="showSection('programas')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-book"></i><span>Programas</span>
+            </button>
+            <button onclick="showSection('competencias')" class="nav-item w-full flex items-center space-x-3 text-gray-600 p-3 rounded-xl transition hover:bg-white/50">
+                <i class="fas fa-award"></i><span>Competencias</span>
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-gray-200">
+            <div class="bg-white p-3 rounded-2xl flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-[#39A900] rounded-full flex items-center justify-center text-white font-bold">CS</div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-800">Coordinador</p>
+                        <p class="text-xs text-gray-500">Sede Principal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-8">
+        
+        <header class="flex justify-between items-center mb-8">
+            <h1 id="section-title" class="text-3xl font-bold text-slate-800">Resumen Académico</h1>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    <input type="text" placeholder="Buscar..." class="pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none w-64">
+                </div>
+                <button class="p-2 bg-white border border-gray-200 rounded-xl text-gray-500 hover:text-[#39A900] transition">
+                    <i class="far fa-bell"></i>
+                </button>
+            </div>
+        </header>
+
+        <section id="resumen" class="view-section active">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="bg-[#39A900] w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"><i class="fas fa-user-graduate"></i></div>
+                    <p class="text-3xl font-bold text-slate-800">2,450</p>
+                    <p class="text-gray-500 text-sm">Aprendices Activos</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="bg-teal-500 w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"><i class="fas fa-folder"></i></div>
+                    <p class="text-3xl font-bold text-slate-800">84</p>
+                    <p class="text-gray-500 text-sm">Fichas de Formación</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="bg-blue-500 w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"><i class="fas fa-award"></i></div>
+                    <p class="text-3xl font-bold text-slate-800">89%</p>
+                    <p class="text-gray-500 text-sm">Meta de Certificación</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="bg-red-500 w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4"><i class="fas fa-chart-line"></i></div>
+                    <p class="text-3xl font-bold text-slate-800">2.4%</p>
+                    <p class="text-gray-500 text-sm">Deserción Mensual</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 h-64 flex items-center justify-center text-gray-400 italic">Tendencia Académica</div>
+                <div class="bg-white p-6 rounded-3xl border border-gray-100 h-64 flex items-center justify-center text-gray-400 italic">Ocupación de Ambientes</div>
+            </div>
+        </section>
+
+        <section id="table-view" class="view-section bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <h3 id="table-title" class="text-xl font-bold text-slate-800">Listado</h3>
+                <button onclick="openModal()" class="bg-[#39A900] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-green-700 transition">
+                    + Agregar Nuevo
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold">
+                        <tr id="table-headers">
+                            </tr>
+                    </thead>
+                    <tbody id="table-body" class="text-gray-600 text-sm">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modales para cada sección -->
+    
+    <!-- Modal Aprendices -->
+    <div id="modal-aprendices" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nuevo Aprendice</h2>
+                <button onclick="closeModal('aprendices')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo de Documento</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                            <option>Cédula de Ciudadanía</option>
+                            <option>Tarjeta de Identidad</option>
+                            <option>Cédula de Extranjería</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Número de Documento</label>
+                        <input type="text" placeholder="1234567890" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nombres</label>
+                        <input type="text" placeholder="Juan Carlos" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Apellidos</label>
+                        <input type="text" placeholder="Pérez García" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Ficha</label>
+                    <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                        <option>2504321 - ADSO</option>
+                        <option>2619000 - Gestión Empresarial</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                    <input type="email" placeholder="correo@ejemplo.com" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('aprendices')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Instructores -->
+    <div id="modal-instructores" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nuevo Instructor</h2>
+                <button onclick="closeModal('instructores')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nombres</label>
+                        <input type="text" placeholder="Pedro" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Apellidos</label>
+                        <input type="text" placeholder="Gómez" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Especialidad</label>
+                    <input type="text" placeholder="ADSO, Multimedia, etc." class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Correo Electrónico</label>
+                    <input type="email" placeholder="instructor@sena.edu.co" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Carga Horaria Semanal</label>
+                    <input type="number" placeholder="40" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('instructores')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Fichas -->
+    <div id="modal-fichas" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nueva Ficha</h2>
+                <button onclick="closeModal('fichas')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Código de Ficha</label>
+                    <input type="text" placeholder="2504321" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Programa de Formación</label>
+                    <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                        <option>ADSO - Análisis y Desarrollo de Software</option>
+                        <option>Gestión Empresarial</option>
+                        <option>Contabilidad y Finanzas</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de Inicio</label>
+                        <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Fin Etapa Lectiva</label>
+                        <input type="date" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Número de Aprendices</label>
+                    <input type="number" placeholder="28" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('fichas')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Sedes -->
+    <div id="modal-sedes" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nueva Sede</h2>
+                <button onclick="closeModal('sedes')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre de la Sede</label>
+                    <input type="text" placeholder="Sede Central" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Dirección</label>
+                    <input type="text" placeholder="Calle 15 #2-30" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Encargado</label>
+                    <input type="text" placeholder="Juan Pérez" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Teléfono</label>
+                    <input type="tel" placeholder="3001234567" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('sedes')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ambientes -->
+    <div id="modal-ambientes" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nuevo Ambiente</h2>
+                <button onclick="closeModal('ambientes')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre del Ambiente</label>
+                    <input type="text" placeholder="Laboratorio 1" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Sede</label>
+                    <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                        <option>Sede Central</option>
+                        <option>Sede TIC</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Capacidad</label>
+                        <input type="number" placeholder="30" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                            <option>Computo</option>
+                            <option>Polivalente</option>
+                            <option>Taller</option>
+                            <option>Laboratorio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('ambientes')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Programas -->
+    <div id="modal-programas" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nuevo Programa</h2>
+                <button onclick="closeModal('programas')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Código del Programa</label>
+                    <input type="text" placeholder="228106" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre del Programa</label>
+                    <input type="text" placeholder="Análisis y Desarrollo de Software" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                            <option>Tecnólogo</option>
+                            <option>Técnico</option>
+                            <option>Operario</option>
+                            <option>Especialización</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Duración (Meses)</label>
+                        <input type="number" placeholder="27" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('programas')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Competencias -->
+    <div id="modal-competencias" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">Nueva Competencia</h2>
+                <button onclick="closeModal('competencias')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Código de Competencia</label>
+                    <input type="text" placeholder="220501092" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
+                    <textarea rows="3" placeholder="Analizar requisitos del cliente..." class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Horas</label>
+                        <input type="number" placeholder="120" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo</label>
+                        <select class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                            <option>Técnica</option>
+                            <option>Transversal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('competencias')" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar -->
+    <div id="modal-delete" class="modal">
+        <div class="modal-content max-w-md">
+            <div class="text-center mb-6">
+                <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">¿Confirmar Eliminación?</h2>
+                <p class="text-gray-600">Esta acción no se puede deshacer. ¿Estás seguro de que deseas eliminar este registro?</p>
+            </div>
+            <div class="flex justify-center space-x-3">
+                <button onclick="closeDeleteModal()" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">
+                    Cancelar
+                </button>
+                <button onclick="confirmDelete()" class="px-6 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edición (Reutilizable) -->
+    <div id="modal-edit" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="edit-title" class="text-2xl font-bold text-slate-800">Editar Registro</h2>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="edit-form" class="space-y-4">
+                <div id="edit-fields"></div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeEditModal()" class="px-6 py-2 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-[#39A900] text-white rounded-xl hover:bg-green-700">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = '';
+        let deleteIndex = null;
+        let deleteSectionId = null;
+        let editIndex = null;
+        let editSectionId = null;
+        
+        const contentData = {
+            aprendices: { title: "Gestión de Aprendices", headers: ["Documento", "Nombre", "Ficha", "Estado"], rows: [["10203040", "Ana López", "2504321", "En formación"], ["50607080", "Carlos Ruiz", "2504321", "Etapa Práctica"]] },
+            instructores: { title: "Cuerpo de Instructores", headers: ["Nombre", "Especialidad", "Carga Horaria", "Estado"], rows: [["Ing. Pedro Gómez", "ADSO", "40h", "Activo"], ["Dra. Marta Soto", "Multimedia", "32h", "Permiso"]] },
+            fichas: { title: "Fichas de Formación", headers: ["Código", "Programa", "Aprendices", "Fin Etapa Lectiva"], rows: [["2504321", "ADSO", "28", "2024-12-15"], ["2619000", "Gestión Empresarial", "32", "2025-03-20"]] },
+            sedes: { title: "Sedes del Centro", headers: ["Nombre", "Dirección", "Encargado", "Estado"], rows: [["Sede Central", "Calle 15 #2-30", "Juan Pérez", "Abierto"], ["Sede TIC", "Av. Industrial", "Lucía Marín", "Abierto"]] },
+            ambientes: { title: "Ambientes de Aprendizaje", headers: ["Nombre", "Sede", "Capacidad", "Tipo"], rows: [["Laboratorio 1", "Sede TIC", "30", "Computo"], ["Aula 204", "Sede Central", "25", "Polivalente"]] },
+            programas: { title: "Programas de Formación", headers: ["Código", "Nombre del Programa", "Nivel", "Duración"], rows: [["228106", "ADSO", "Tecnólogo", "27 Meses"], ["133100", "Contabilidad", "Técnico", "12 Meses"]] },
+            competencias: { title: "Banco de Competencias", headers: ["Código", "Descripción", "Horas", "Tipo"], rows: [["220501092", "Analizar requisitos del cliente", "120", "Técnica"], ["240201524", "Ética para la vida", "48", "Transversal"]] }
+        };
+
+        function openModal() {
+            const modalId = `modal-${currentSection}`;
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(section) {
+            document.getElementById(`modal-${section}`).classList.remove('active');
+        }
+
+        function showSection(sectionId) {
+            currentSection = sectionId;
+            
+            // Actualizar UI de Navegación
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Ocultar todas las secciones
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+
+            if (sectionId === 'resumen') {
+                document.getElementById('resumen').classList.add('active');
+                document.getElementById('section-title').innerText = "Resumen Académico";
+            } else {
+                const data = contentData[sectionId];
+                document.getElementById('section-title').innerText = data.title;
+                document.getElementById('table-title').innerText = `Detalle de ${data.title}`;
+                
+                // Generar Cabeceras
+                const headerRow = document.getElementById('table-headers');
+                headerRow.innerHTML = data.headers.map(h => `<th class="p-4">${h}</th>`).join('') + '<th class="p-4 text-center">Acciones</th>';
+
+                // Generar Filas
+                const body = document.getElementById('table-body');
+                body.innerHTML = data.rows.map((row, index) => `
+                    <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+                        ${row.map(cell => `<td class="p-4">${cell}</td>`).join('')}
+                        <td class="p-4 text-center">
+                            <button onclick="editItem('${sectionId}', ${index})" class="text-blue-500 hover:text-blue-700 mr-2" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteItem('${sectionId}', ${index})" class="text-red-500 hover:text-red-700" title="Eliminar">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('table-view').classList.add('active');
+            }
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Función para eliminar un registro
+        function deleteItem(sectionId, index) {
+            deleteSectionId = sectionId;
+            deleteIndex = index;
+            document.getElementById('modal-delete').classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('modal-delete').classList.remove('active');
+            deleteSectionId = null;
+            deleteIndex = null;
+        }
+
+        function confirmDelete() {
+            if (deleteSectionId && deleteIndex !== null) {
+                // Eliminar el registro del array
+                contentData[deleteSectionId].rows.splice(deleteIndex, 1);
+                
+                // Mostrar notificación
+                showNotification('Registro eliminado exitosamente', 'success');
+                
+                // Recargar la tabla
+                showSection(deleteSectionId);
+                
+                // Cerrar modal
+                closeDeleteModal();
+            }
+        }
+
+        // Función para editar un registro
+        function editItem(sectionId, index) {
+            editSectionId = sectionId;
+            editIndex = index;
+            
+            const data = contentData[sectionId];
+            const row = data.rows[index];
+            
+            // Actualizar título del modal
+            document.getElementById('edit-title').innerText = `Editar ${data.title.replace('Gestión de ', '').replace('Cuerpo de ', '').replace('Fichas de ', '').replace('Sedes del ', '').replace('Ambientes de ', '').replace('Programas de ', '').replace('Banco de ', '')}`;
+            
+            // Generar campos del formulario según la sección
+            const fieldsContainer = document.getElementById('edit-fields');
+            fieldsContainer.innerHTML = generateEditFields(sectionId, data.headers, row);
+            
+            // Mostrar modal
+            document.getElementById('modal-edit').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('modal-edit').classList.remove('active');
+            editSectionId = null;
+            editIndex = null;
+        }
+
+        function generateEditFields(sectionId, headers, row) {
+            let fields = '';
+            
+            headers.forEach((header, i) => {
+                const value = row[i];
+                fields += `
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">${header}</label>
+                        <input type="text" value="${value}" id="edit-field-${i}" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#39A900] outline-none">
+                    </div>
+                `;
+            });
+            
+            return fields;
+        }
+
+        // Manejar el submit del formulario de edición
+        document.getElementById('edit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (editSectionId && editIndex !== null) {
+                const data = contentData[editSectionId];
+                const newRow = [];
+                
+                // Obtener los valores actualizados
+                data.headers.forEach((header, i) => {
+                    const input = document.getElementById(`edit-field-${i}`);
+                    newRow.push(input.value);
+                });
+                
+                // Actualizar el registro
+                contentData[editSectionId].rows[editIndex] = newRow;
+                
+                // Mostrar notificación
+                showNotification('Registro actualizado exitosamente', 'success');
+                
+                // Recargar la tabla
+                showSection(editSectionId);
+                
+                // Cerrar modal
+                closeEditModal();
+            }
+        });
+
+        // Función para mostrar notificaciones
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-4 rounded-xl shadow-lg z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white font-semibold`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animar entrada
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateY(-20px)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

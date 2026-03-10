@@ -1,63 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Consultas a la Base de Datos - ProgSena</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
+
         .header {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
             color: white;
             padding: 40px;
             text-align: center;
         }
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
+
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
         }
+
         .content {
             padding: 40px;
         }
+
         .section {
             margin-bottom: 40px;
             padding: 30px;
             background: #f8f9fa;
             border-radius: 10px;
-            border-left: 5px solid #10b981;
+            border-left: 5px solid #059669;
         }
+
         .section h2 {
-            color: #10b981;
+            color: #059669;
             font-size: 2em;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #10b981;
+            border-bottom: 2px solid #059669;
         }
+
         .section h3 {
-            color: #059669;
+            color: #047857;
             font-size: 1.5em;
             margin: 20px 0 10px 0;
         }
+
         .sql-block {
             background: #2d3748;
             color: #e2e8f0;
@@ -68,32 +83,38 @@
             font-family: 'Courier New', monospace;
             font-size: 0.95em;
             line-height: 1.5;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .sql-block code {
             color: #68d391;
         }
+
         .sql-comment {
             color: #a0aec0;
             font-style: italic;
         }
+
         .query-card {
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
-            border-left: 4px solid #10b981;
+            border-left: 4px solid #059669;
         }
+
         .query-card h4 {
-            color: #10b981;
+            color: #059669;
             margin-bottom: 10px;
             font-size: 1.3em;
         }
+
         .query-card p {
             color: #666;
             margin-bottom: 15px;
         }
+
         .info-box {
             background: #e7f3ff;
             padding: 15px;
@@ -101,6 +122,7 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .warning-box {
             background: #fff3cd;
             padding: 15px;
@@ -108,6 +130,7 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .success-box {
             background: #d4edda;
             padding: 15px;
@@ -115,30 +138,36 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .table-container {
             overflow-x: auto;
             margin: 20px 0;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         th {
-            background: #10b981;
+            background: #059669;
             color: white;
             padding: 12px;
             text-align: left;
             font-weight: 600;
         }
+
         td {
             padding: 12px;
             border-bottom: 1px solid #e2e8f0;
         }
+
         tr:hover {
             background: #f7fafc;
         }
+
         .badge {
             display: inline-block;
             padding: 4px 12px;
@@ -146,22 +175,47 @@
             font-size: 0.85em;
             font-weight: 600;
         }
-        .badge-primary { background: #e7f3ff; color: #2196F3; }
-        .badge-success { background: #d4edda; color: #28a745; }
-        .badge-warning { background: #fff3cd; color: #ffc107; }
-        .badge-danger { background: #f8d7da; color: #dc3545; }
+
+        .badge-primary {
+            background: #e7f3ff;
+            color: #2196F3;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #28a745;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #ffc107;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #dc3545;
+        }
+
         .footer {
             background: #2c3e50;
             color: white;
             padding: 30px;
             text-align: center;
         }
+
         @media print {
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; }
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -174,7 +228,7 @@
             <!-- SECCIÓN 1: INFORMACIÓN GENERAL -->
             <div class="section">
                 <h2>1. Información General de la Base de Datos</h2>
-                
+
                 <div class="info-box">
                     <strong>📊 Configuración de la Base de Datos</strong><br>
                     <strong>Nombre:</strong> cphpmysql<br>
@@ -301,19 +355,19 @@
             <!-- SECCIÓN 2: CONSULTAS DE AUTENTICACIÓN -->
             <div class="section">
                 <h2>2. Consultas de Autenticación y Usuarios</h2>
-                
+
                 <div class="query-card">
                     <h4>2.1 Verificar Credenciales de Usuario</h4>
                     <p>Consulta utilizada en el login para validar email y contraseña.</p>
                     <div class="sql-block">
-<span class="sql-comment">-- Verificar usuario por email y contraseña</span>
-<code>SELECT usuario_id, nombre, email, rol, activo
+                        <span class="sql-comment">-- Verificar usuario por email y contraseña</span>
+                        <code>SELECT usuario_id, nombre, email, rol, activo
 FROM usuarios
 WHERE email = ? 
   AND activo = 1;</code>
 
-<span class="sql-comment">-- Luego verificar password con password_verify() en PHP</span>
-<span class="sql-comment">-- password_verify($password_ingresado, $password_hash_bd)</span>
+                        <span class="sql-comment">-- Luego verificar password con password_verify() en PHP</span>
+                        <span class="sql-comment">-- password_verify($password_ingresado, $password_hash_bd)</span>
                     </div>
                 </div>
 
@@ -321,7 +375,7 @@ WHERE email = ?
                     <h4>2.2 Listar Todos los Usuarios del Sistema</h4>
                     <p>Consulta para obtener todos los usuarios con su información básica.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     usuario_id AS 'ID',
     nombre AS 'Nombre Completo',
     email AS 'Correo Electrónico',
@@ -340,7 +394,7 @@ ORDER BY usuario_id;</code>
                     <h4>2.3 Contar Usuarios por Rol</h4>
                     <p>Estadística de usuarios agrupados por rol.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     rol AS 'Rol',
     COUNT(*) AS 'Total',
     SUM(CASE WHEN activo = 1 THEN 1 ELSE 0 END) AS 'Activos',
@@ -362,12 +416,12 @@ ORDER BY COUNT(*) DESC;</code>
             <!-- SECCIÓN 3: CONSULTAS DE ASIGNACIONES -->
             <div class="section">
                 <h2>3. Consultas de Asignaciones</h2>
-                
+
                 <div class="query-card">
                     <h4>3.1 Listar Asignaciones Completas con JOIN</h4>
                     <p>Consulta principal para mostrar asignaciones con toda la información relacionada.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     a.asignacion_id,
     f.codigo_ficha,
     f.programa,
@@ -395,7 +449,7 @@ ORDER BY a.fecha_inicio DESC;</code>
                     <h4>3.2 Asignaciones por Instructor</h4>
                     <p>Consulta para ver todas las asignaciones de un instructor específico.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     f.codigo_ficha,
     f.programa,
     e.nombre_experiencia,
@@ -416,7 +470,7 @@ ORDER BY a.fecha_inicio;</code>
                     <h4>3.3 Verificar Conflictos de Horario (Instructor)</h4>
                     <p>Consulta para detectar si un instructor ya tiene asignación en el horario propuesto.</p>
                     <div class="sql-block">
-<code>SELECT COUNT(*) as conflictos
+                        <code>SELECT COUNT(*) as conflictos
 FROM asignaciones
 WHERE instructor_id = ?
   AND (
@@ -437,7 +491,7 @@ WHERE instructor_id = ?
                     <h4>3.4 Verificar Conflictos de Ambiente</h4>
                     <p>Consulta para detectar si un ambiente ya está ocupado en el horario propuesto.</p>
                     <div class="sql-block">
-<code>SELECT COUNT(*) as conflictos
+                        <code>SELECT COUNT(*) as conflictos
 FROM asignaciones
 WHERE ambiente_id = ?
   AND (
@@ -458,12 +512,12 @@ WHERE ambiente_id = ?
             <!-- SECCIÓN 4: CONSULTAS DE NOTIFICACIONES -->
             <div class="section">
                 <h2>4. Consultas de Notificaciones</h2>
-                
+
                 <div class="query-card">
                     <h4>4.1 Listar Notificaciones del Instructor</h4>
                     <p>Consulta para obtener notificaciones enviadas a un instructor.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     tipo,
     titulo,
@@ -481,7 +535,7 @@ LIMIT 20;</code>
                     <h4>4.2 Contar Notificaciones No Leídas</h4>
                     <p>Consulta para obtener el contador de notificaciones pendientes.</p>
                     <div class="sql-block">
-<code>SELECT COUNT(*) as no_leidas
+                        <code>SELECT COUNT(*) as no_leidas
 FROM notificaciones_instructor
 WHERE instructor_id = ?
   AND leida = 0;</code>
@@ -492,7 +546,7 @@ WHERE instructor_id = ?
                     <h4>4.3 Listar Solicitudes de Perfil (Coordinador)</h4>
                     <p>Consulta para obtener solicitudes de cambio de perfil de instructores.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     instructor_id,
     instructor_nombre,
@@ -512,7 +566,7 @@ ORDER BY fecha_creacion DESC;</code>
                     <h4>4.4 Marcar Notificación como Leída</h4>
                     <p>Consulta para actualizar el estado de una notificación.</p>
                     <div class="sql-block">
-<code>UPDATE notificaciones_instructor
+                        <code>UPDATE notificaciones_instructor
 SET leida = 1,
     fecha_lectura = NOW()
 WHERE id = ?
@@ -524,7 +578,7 @@ WHERE id = ?
                     <h4>4.5 Enviar Notificación a Instructor</h4>
                     <p>Consulta para crear una nueva notificación.</p>
                     <div class="sql-block">
-<code>INSERT INTO notificaciones_instructor 
+                        <code>INSERT INTO notificaciones_instructor 
     (instructor_id, coordinador_id, tipo, titulo, mensaje, leida, fecha_creacion)
 VALUES 
     (?, ?, ?, ?, ?, 0, NOW());</code>
@@ -535,12 +589,12 @@ VALUES
             <!-- SECCIÓN 5: CONSULTAS DE CALENDARIO -->
             <div class="section">
                 <h2>5. Consultas de Calendario y Eventos</h2>
-                
+
                 <div class="query-card">
                     <h4>5.1 Listar Eventos del Calendario</h4>
                     <p>Consulta para obtener todos los eventos del calendario.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     title,
     start_date,
@@ -556,7 +610,7 @@ ORDER BY start_date DESC;</code>
                     <h4>5.2 Crear Evento en el Calendario</h4>
                     <p>Consulta para insertar un nuevo evento.</p>
                     <div class="sql-block">
-<code>INSERT INTO events 
+                        <code>INSERT INTO events 
     (title, start_date, end_date, user_id, created_at)
 VALUES 
     (?, ?, ?, ?, NOW());</code>
@@ -567,7 +621,7 @@ VALUES
                     <h4>5.3 Eliminar Evento del Calendario</h4>
                     <p>Consulta para eliminar un evento específico.</p>
                     <div class="sql-block">
-<code>DELETE FROM events
+                        <code>DELETE FROM events
 WHERE id = ?;</code>
                     </div>
                 </div>
@@ -576,7 +630,7 @@ WHERE id = ?;</code>
                     <h4>5.4 Eventos por Rango de Fechas</h4>
                     <p>Consulta para obtener eventos en un período específico.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     title,
     start_date,
@@ -591,12 +645,12 @@ ORDER BY start_date;</code>
             <!-- SECCIÓN 6: CONSULTAS DE INSTRUCTORES -->
             <div class="section">
                 <h2>6. Consultas de Instructores</h2>
-                
+
                 <div class="query-card">
                     <h4>6.1 Listar Todos los Instructores</h4>
                     <p>Consulta para obtener la lista completa de instructores.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     CONCAT(nombre, ' ', apellido) AS nombre_completo,
     email,
@@ -613,7 +667,7 @@ ORDER BY apellido, nombre;</code>
                     <h4>6.2 Buscar Instructor por Email</h4>
                     <p>Consulta para buscar un instructor específico.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id,
     nombre,
     apellido,
@@ -630,7 +684,7 @@ WHERE email = ?;</code>
                     <h4>6.3 Actualizar Perfil de Instructor</h4>
                     <p>Consulta para actualizar información del instructor.</p>
                     <div class="sql-block">
-<code>UPDATE instructores
+                        <code>UPDATE instructores
 SET nombre = ?,
     apellido = ?,
     email = ?,
@@ -645,7 +699,7 @@ WHERE id = ?;</code>
                     <h4>6.4 Estadísticas de Instructores</h4>
                     <p>Consulta para obtener estadísticas de carga de instructores.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     i.id,
     CONCAT(i.nombre, ' ', i.apellido) AS instructor,
     i.especialidad,
@@ -662,12 +716,12 @@ ORDER BY total_asignaciones DESC;</code>
             <!-- SECCIÓN 7: CONSULTAS DE FICHAS Y PROGRAMAS -->
             <div class="section">
                 <h2>7. Consultas de Fichas y Programas</h2>
-                
+
                 <div class="query-card">
                     <h4>7.1 Listar Fichas Activas</h4>
                     <p>Consulta para obtener fichas en estado activo.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     ficha_id,
     codigo_ficha,
     programa,
@@ -686,7 +740,7 @@ ORDER BY fecha_inicio DESC;</code>
                     <h4>7.2 Fichas con Conteo de Aprendices</h4>
                     <p>Consulta para ver fichas con cantidad de aprendices.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     f.codigo_ficha,
     f.programa,
     COUNT(ap.aprendiz_id) AS total_aprendices,
@@ -702,7 +756,7 @@ ORDER BY total_aprendices DESC;</code>
                     <h4>7.3 Listar Programas de Formación</h4>
                     <p>Consulta para obtener todos los programas disponibles.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     programa_id,
     codigo,
     nombre,
@@ -719,7 +773,7 @@ ORDER BY nombre;</code>
                     <h4>7.4 Fichas por Programa</h4>
                     <p>Consulta para agrupar fichas por programa.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     programa,
     COUNT(*) AS total_fichas,
     SUM(CASE WHEN estado = 'Activa' THEN 1 ELSE 0 END) AS fichas_activas
@@ -733,12 +787,12 @@ ORDER BY total_fichas DESC;</code>
             <!-- SECCIÓN 8: CONSULTAS DE AMBIENTES -->
             <div class="section">
                 <h2>8. Consultas de Ambientes y Sedes</h2>
-                
+
                 <div class="query-card">
                     <h4>8.1 Listar Ambientes Disponibles</h4>
                     <p>Consulta para obtener ambientes disponibles.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     a.ambiente_id,
     a.nombre_ambiente,
     a.capacidad,
@@ -756,7 +810,7 @@ ORDER BY s.nombre_sede, a.nombre_ambiente;</code>
                     <h4>8.2 Ambientes por Tipo</h4>
                     <p>Consulta para agrupar ambientes por tipo.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     tipo,
     COUNT(*) AS total,
     SUM(CASE WHEN estado = 'Disponible' THEN 1 ELSE 0 END) AS disponibles,
@@ -771,7 +825,7 @@ ORDER BY total DESC;</code>
                     <h4>8.3 Listar Sedes</h4>
                     <p>Consulta para obtener todas las sedes.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     sede_id,
     nombre_sede,
     direccion,
@@ -787,7 +841,7 @@ ORDER BY ciudad, nombre_sede;</code>
                     <h4>8.4 Ambientes con Uso</h4>
                     <p>Consulta para ver ambientes con estadísticas de uso.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     a.nombre_ambiente,
     a.capacidad,
     a.tipo,
@@ -803,12 +857,12 @@ ORDER BY veces_asignado DESC;</code>
             <!-- SECCIÓN 9: CONSULTAS DE REPORTES -->
             <div class="section">
                 <h2>9. Consultas de Reportes y Estadísticas</h2>
-                
+
                 <div class="query-card">
                     <h4>9.1 Reporte de Asignaciones por Período</h4>
                     <p>Consulta para generar reporte de asignaciones en un rango de fechas.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     DATE_FORMAT(a.fecha_inicio, '%Y-%m') AS periodo,
     COUNT(*) AS total_asignaciones,
     COUNT(DISTINCT a.instructor_id) AS instructores_activos,
@@ -824,7 +878,7 @@ ORDER BY periodo DESC;</code>
                     <h4>9.2 Dashboard - Estadísticas Generales</h4>
                     <p>Consulta para obtener estadísticas del dashboard.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     (SELECT COUNT(*) FROM instructores) AS total_instructores,
     (SELECT COUNT(*) FROM fichas WHERE estado = 'Activa') AS fichas_activas,
     (SELECT COUNT(*) FROM asignaciones WHERE estado IN ('Programada', 'En Curso')) AS asignaciones_activas,
@@ -837,7 +891,7 @@ ORDER BY periodo DESC;</code>
                     <h4>9.3 Reporte de Carga Horaria por Instructor</h4>
                     <p>Consulta para calcular horas asignadas por instructor.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     CONCAT(i.nombre, ' ', i.apellido) AS instructor,
     i.especialidad,
     COUNT(a.asignacion_id) AS total_asignaciones,
@@ -855,7 +909,7 @@ ORDER BY horas_semanales_total DESC;</code>
                     <h4>9.4 Reporte de Ocupación de Ambientes</h4>
                     <p>Consulta para ver ocupación de ambientes por día.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     amb.nombre_ambiente,
     amb.tipo,
     COUNT(a.asignacion_id) AS asignaciones_activas,
@@ -872,7 +926,7 @@ ORDER BY asignaciones_activas DESC;</code>
                     <h4>9.5 Reporte de Aprendices por Ficha</h4>
                     <p>Consulta para generar reporte de aprendices.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     f.codigo_ficha,
     f.programa,
     COUNT(ap.aprendiz_id) AS total_aprendices,
@@ -890,12 +944,12 @@ ORDER BY total_aprendices DESC;</code>
             <!-- SECCIÓN 10: CONSULTAS DE AUDITORÍA -->
             <div class="section">
                 <h2>10. Consultas de Auditoría y Validación</h2>
-                
+
                 <div class="query-card">
                     <h4>10.1 Historial de Auditoría de Asignaciones</h4>
                     <p>Consulta para ver el historial de cambios en asignaciones.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     id_auditoria,
     asignacion_id,
     usuario_que_creo,
@@ -911,7 +965,7 @@ LIMIT 50;</code>
                     <h4>10.2 Verificar Integridad de Datos</h4>
                     <p>Consulta para verificar la integridad referencial.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Verificar asignaciones sin instructor</span>
+                        <code><span class="sql-comment">-- Verificar asignaciones sin instructor</span>
 SELECT COUNT(*) as asignaciones_huerfanas
 FROM asignaciones a
 LEFT JOIN instructores i ON a.instructor_id = i.id
@@ -929,7 +983,7 @@ WHERE f.ficha_id IS NULL;</code>
                     <h4>10.3 Validar Fechas de Asignaciones</h4>
                     <p>Consulta para detectar asignaciones con fechas inválidas.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     asignacion_id,
     fecha_inicio,
     fecha_fin,
@@ -945,7 +999,7 @@ ORDER BY fecha_inicio;</code>
                     <h4>10.4 Detectar Sobrecargas de Instructores</h4>
                     <p>Consulta para identificar instructores con más de 20 horas semanales.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     i.id,
     CONCAT(i.nombre, ' ', i.apellido) AS instructor,
     SUM(a.horas_semanales) AS total_horas_semanales,
@@ -973,12 +1027,12 @@ ORDER BY total_horas_semanales DESC;</code>
             <!-- SECCIÓN 11: CONSULTAS AVANZADAS -->
             <div class="section">
                 <h2>11. Consultas Avanzadas y Optimización</h2>
-                
+
                 <div class="query-card">
                     <h4>11.1 Vista de Asignaciones Completas</h4>
                     <p>Crear vista para simplificar consultas complejas.</p>
                     <div class="sql-block">
-<code>CREATE OR REPLACE VIEW vista_asignaciones_completas AS
+                        <code>CREATE OR REPLACE VIEW vista_asignaciones_completas AS
 SELECT 
     a.asignacion_id,
     a.fecha_inicio,
@@ -1010,7 +1064,7 @@ LEFT JOIN sedes s ON f.sede_id = s.sede_id;</code>
                     <h4>11.2 Usar la Vista Creada</h4>
                     <p>Consulta simplificada usando la vista.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Consulta simple usando la vista</span>
+                        <code><span class="sql-comment">-- Consulta simple usando la vista</span>
 SELECT * FROM vista_asignaciones_completas
 WHERE estado = 'En Curso'
 ORDER BY fecha_inicio DESC;
@@ -1029,7 +1083,7 @@ WHERE nombre_sede = 'Sede Pescadero';</code>
                     <h4>11.3 Búsqueda Full-Text</h4>
                     <p>Consulta para búsqueda avanzada en múltiples campos.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     asignacion_id,
     codigo_ficha,
     programa,
@@ -1047,7 +1101,7 @@ LIMIT 20;</code>
                     <h4>11.4 Consulta con Paginación</h4>
                     <p>Consulta optimizada para mostrar resultados paginados.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Página 1 (primeros 10 registros)</span>
+                        <code><span class="sql-comment">-- Página 1 (primeros 10 registros)</span>
 SELECT SQL_CALC_FOUND_ROWS *
 FROM vista_asignaciones_completas
 ORDER BY fecha_inicio DESC
@@ -1060,7 +1114,7 @@ SELECT FOUND_ROWS() as total_registros;</code>
 
                 <div class="info-box">
                     <strong>💡 Tip de Optimización:</strong><br>
-                    Las vistas simplifican consultas complejas y mejoran la mantenibilidad del código. 
+                    Las vistas simplifican consultas complejas y mejoran la mantenibilidad del código.
                     Use índices en columnas frecuentemente consultadas (email, fecha_inicio, estado).
                 </div>
             </div>
@@ -1068,12 +1122,12 @@ SELECT FOUND_ROWS() as total_registros;</code>
             <!-- SECCIÓN 12: CONSULTAS DE MANTENIMIENTO -->
             <div class="section">
                 <h2>12. Consultas de Mantenimiento y Limpieza</h2>
-                
+
                 <div class="query-card">
                     <h4>12.1 Limpiar Notificaciones Antiguas</h4>
                     <p>Consulta para eliminar notificaciones leídas de más de 30 días.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Eliminar notificaciones de instructores antiguas</span>
+                        <code><span class="sql-comment">-- Eliminar notificaciones de instructores antiguas</span>
 DELETE FROM notificaciones_instructor
 WHERE leida = 1
   AND fecha_lectura < DATE_SUB(NOW(), INTERVAL 30 DAY);
@@ -1089,7 +1143,7 @@ WHERE leida = 1
                     <h4>12.2 Actualizar Estado de Asignaciones</h4>
                     <p>Consulta para actualizar automáticamente asignaciones finalizadas.</p>
                     <div class="sql-block">
-<code>UPDATE asignaciones
+                        <code>UPDATE asignaciones
 SET estado = 'Finalizada'
 WHERE fecha_fin < CURDATE()
   AND estado IN ('Programada', 'En Curso');</code>
@@ -1100,7 +1154,7 @@ WHERE fecha_fin < CURDATE()
                     <h4>12.3 Actualizar Estado de Fichas</h4>
                     <p>Consulta para actualizar fichas que ya finalizaron.</p>
                     <div class="sql-block">
-<code>UPDATE fichas
+                        <code>UPDATE fichas
 SET estado = 'Finalizada'
 WHERE fecha_fin < CURDATE()
   AND estado = 'Activa';</code>
@@ -1111,7 +1165,7 @@ WHERE fecha_fin < CURDATE()
                     <h4>12.4 Limpiar Eventos Antiguos del Calendario</h4>
                     <p>Consulta para eliminar eventos de más de 6 meses.</p>
                     <div class="sql-block">
-<code>DELETE FROM events
+                        <code>DELETE FROM events
 WHERE end_date < DATE_SUB(NOW(), INTERVAL 6 MONTH);</code>
                     </div>
                 </div>
@@ -1120,7 +1174,7 @@ WHERE end_date < DATE_SUB(NOW(), INTERVAL 6 MONTH);</code>
                     <h4>12.5 Optimizar Tablas</h4>
                     <p>Comandos para optimizar el rendimiento de la base de datos.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Optimizar tabla de asignaciones</span>
+                        <code><span class="sql-comment">-- Optimizar tabla de asignaciones</span>
 OPTIMIZE TABLE asignaciones;
 
 <span class="sql-comment">-- Optimizar tabla de notificaciones</span>
@@ -1142,12 +1196,12 @@ ANALYZE TABLE asignaciones;</code>
             <!-- SECCIÓN 13: ÍNDICES Y OPTIMIZACIÓN -->
             <div class="section">
                 <h2>13. Índices y Optimización de Consultas</h2>
-                
+
                 <div class="query-card">
                     <h4>13.1 Índices Existentes en el Sistema</h4>
                     <p>Lista de índices creados para optimizar consultas.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Tabla usuarios</span>
+                        <code><span class="sql-comment">-- Tabla usuarios</span>
 INDEX idx_email (email)
 INDEX idx_rol (rol)
 
@@ -1180,7 +1234,7 @@ INDEX idx_dates (start_date, end_date)</code>
                     <h4>13.2 Verificar Uso de Índices</h4>
                     <p>Consulta para analizar si una query usa índices.</p>
                     <div class="sql-block">
-<code>EXPLAIN SELECT * 
+                        <code>EXPLAIN SELECT * 
 FROM asignaciones 
 WHERE instructor_id = 1 
   AND estado = 'En Curso';</code>
@@ -1191,7 +1245,7 @@ WHERE instructor_id = 1
                     <h4>13.3 Crear Índices Adicionales (Si es necesario)</h4>
                     <p>Comandos para crear índices personalizados.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Índice compuesto para búsquedas frecuentes</span>
+                        <code><span class="sql-comment">-- Índice compuesto para búsquedas frecuentes</span>
 CREATE INDEX idx_asignacion_estado_fecha 
 ON asignaciones(estado, fecha_inicio);
 
@@ -1210,20 +1264,20 @@ ON notificaciones_instructor(instructor_id, leida);</code>
                     • Use índices en columnas de JOIN<br>
                     • Indexe columnas usadas en WHERE frecuentemente<br>
                     • Evite índices en tablas pequeñas (< 1000 registros)<br>
-                    • Monitoree el rendimiento con EXPLAIN<br>
-                    • Actualice estadísticas con ANALYZE TABLE
+                        • Monitoree el rendimiento con EXPLAIN<br>
+                        • Actualice estadísticas con ANALYZE TABLE
                 </div>
             </div>
 
             <!-- SECCIÓN 14: BACKUP Y RESTAURACIÓN -->
             <div class="section">
                 <h2>14. Backup y Restauración</h2>
-                
+
                 <div class="query-card">
                     <h4>14.1 Crear Backup Completo</h4>
                     <p>Comando para exportar la base de datos completa.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Desde línea de comandos (CMD/Terminal)</span>
+                        <code><span class="sql-comment">-- Desde línea de comandos (CMD/Terminal)</span>
 mysqldump -u root -p cphpmysql > backup_$(date +%Y%m%d).sql
 
 <span class="sql-comment">-- Backup con compresión</span>
@@ -1235,7 +1289,7 @@ mysqldump -u root -p cphpmysql | gzip > backup_$(date +%Y%m%d).sql.gz</code>
                     <h4>14.2 Restaurar desde Backup</h4>
                     <p>Comando para importar un backup.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Restaurar desde archivo SQL</span>
+                        <code><span class="sql-comment">-- Restaurar desde archivo SQL</span>
 mysql -u root -p cphpmysql < backup_20260307.sql
 
 <span class="sql-comment">-- Restaurar desde archivo comprimido</span>
@@ -1247,7 +1301,7 @@ gunzip < backup_20260307.sql.gz | mysql -u root -p cphpmysql</code>
                     <h4>14.3 Backup de Tablas Específicas</h4>
                     <p>Comando para exportar solo tablas seleccionadas.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Backup solo de asignaciones y notificaciones</span>
+                        <code><span class="sql-comment">-- Backup solo de asignaciones y notificaciones</span>
 mysqldump -u root -p cphpmysql asignaciones notificaciones_instructor notificaciones_coordinador > backup_asignaciones.sql</code>
                     </div>
                 </div>
@@ -1265,12 +1319,12 @@ mysqldump -u root -p cphpmysql asignaciones notificaciones_instructor notificaci
             <!-- SECCIÓN 15: CONSULTAS DE SEGURIDAD -->
             <div class="section">
                 <h2>15. Consultas de Seguridad y Control de Acceso</h2>
-                
+
                 <div class="query-card">
                     <h4>15.1 Auditar Intentos de Login</h4>
                     <p>Consulta para registrar intentos de acceso.</p>
                     <div class="sql-block">
-<code><span class="sql-comment">-- Crear tabla de auditoría de login (si no existe)</span>
+                        <code><span class="sql-comment">-- Crear tabla de auditoría de login (si no existe)</span>
 CREATE TABLE IF NOT EXISTS auditoria_login (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100),
@@ -1292,7 +1346,7 @@ VALUES (?, ?, ?, ?);</code>
                     <h4>15.2 Detectar Intentos Fallidos Múltiples</h4>
                     <p>Consulta para identificar posibles ataques de fuerza bruta.</p>
                     <div class="sql-block">
-<code>SELECT 
+                        <code>SELECT 
     email,
     COUNT(*) as intentos_fallidos,
     MAX(fecha_intento) as ultimo_intento
@@ -1309,7 +1363,7 @@ ORDER BY intentos_fallidos DESC;</code>
                     <h4>15.3 Actualizar Último Acceso</h4>
                     <p>Consulta para registrar el último acceso del usuario.</p>
                     <div class="sql-block">
-<code>UPDATE usuarios
+                        <code>UPDATE usuarios
 SET ultimo_acceso = NOW()
 WHERE usuario_id = ?;</code>
                     </div>
@@ -1319,7 +1373,7 @@ WHERE usuario_id = ?;</code>
                     <h4>15.4 Desactivar Usuario</h4>
                     <p>Consulta para desactivar temporalmente un usuario.</p>
                     <div class="sql-block">
-<code>UPDATE usuarios
+                        <code>UPDATE usuarios
 SET activo = 0
 WHERE usuario_id = ?;
 
@@ -1343,7 +1397,7 @@ WHERE usuario_id = ?;</code>
             <!-- SECCIÓN 16: RESUMEN Y MEJORES PRÁCTICAS -->
             <div class="section">
                 <h2>16. Resumen y Mejores Prácticas</h2>
-                
+
                 <h3>16.1 Consultas Más Utilizadas</h3>
                 <div class="table-container">
                     <table>
@@ -1401,19 +1455,19 @@ WHERE usuario_id = ?;</code>
                     • Siempre use prepared statements con parámetros<br>
                     • Nunca concatene valores directamente en SQL<br>
                     • Valide y sanitice todos los inputs<br><br>
-                    
+
                     <strong>2. Rendimiento:</strong><br>
                     • Use índices en columnas de búsqueda frecuente<br>
                     • Evite SELECT * en producción<br>
                     • Use LIMIT en consultas grandes<br>
                     • Implemente paginación para listas largas<br><br>
-                    
+
                     <strong>3. Mantenibilidad:</strong><br>
                     • Use nombres descriptivos para columnas<br>
                     • Documente consultas complejas<br>
                     • Cree vistas para consultas repetitivas<br>
                     • Mantenga consistencia en nomenclatura<br><br>
-                    
+
                     <strong>4. Backup:</strong><br>
                     • Realice backups automáticos diarios<br>
                     • Pruebe restauración periódicamente<br>
@@ -1444,4 +1498,5 @@ WHERE usuario_id = ?;</code>
         </div>
     </div>
 </body>
+
 </html>

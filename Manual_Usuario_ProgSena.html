@@ -1,63 +1,78 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual de Usuario - ProgSena</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
+
         .header {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
             color: white;
             padding: 40px;
             text-align: center;
         }
+
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
+
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
         }
+
         .content {
             padding: 40px;
         }
+
         .section {
             margin-bottom: 40px;
             padding: 30px;
             background: #f8f9fa;
             border-radius: 10px;
-            border-left: 5px solid #10b981;
+            border-left: 5px solid #059669;
         }
+
         .section h2 {
-            color: #10b981;
+            color: #059669;
             font-size: 2em;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #10b981;
+            border-bottom: 2px solid #059669;
         }
+
         .section h3 {
-            color: #059669;
+            color: #047857;
             font-size: 1.5em;
             margin: 20px 0 10px 0;
         }
+
         .credentials {
             background: #e7f3ff;
             padding: 20px;
@@ -65,40 +80,46 @@
             border-left: 4px solid #2196F3;
             margin: 20px 0;
         }
+
         .credentials h4 {
             color: #2196F3;
             margin-bottom: 10px;
         }
+
         .credential-item {
             background: white;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .credential-item strong {
-            color: #10b981;
+            color: #059669;
         }
+
         .steps {
             counter-reset: step-counter;
             list-style: none;
         }
+
         .steps li {
             counter-increment: step-counter;
             margin: 15px 0;
             padding: 15px;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             position: relative;
             padding-left: 60px;
         }
+
         .steps li::before {
             content: counter(step-counter);
             position: absolute;
             left: 15px;
             top: 15px;
-            background: #10b981;
+            background: #059669;
             color: white;
             width: 35px;
             height: 35px;
@@ -109,28 +130,33 @@
             font-weight: bold;
             font-size: 1.2em;
         }
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 20px 0;
         }
+
         .feature-card {
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
+
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
+
         .feature-card h4 {
-            color: #10b981;
+            color: #059669;
             margin-bottom: 10px;
             font-size: 1.3em;
         }
+
         .warning {
             background: #fff3cd;
             padding: 15px;
@@ -138,6 +164,7 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .success {
             background: #d4edda;
             padding: 15px;
@@ -145,18 +172,27 @@
             border-radius: 5px;
             margin: 15px 0;
         }
+
         .footer {
             background: #2c3e50;
             color: white;
             padding: 30px;
             text-align: center;
         }
+
         @media print {
-            body { background: white; padding: 0; }
-            .container { box-shadow: none; }
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -169,8 +205,10 @@
             <!-- SECCIÓN 1: INTRODUCCIÓN -->
             <div class="section">
                 <h2>1. Introducción</h2>
-                <p>Bienvenido al Sistema de Gestión Académica ProgSena. Este manual le guiará a través de todas las funcionalidades del sistema, diseñado para facilitar la gestión de asignaciones, instructores, fichas y competencias en el SENA.</p>
-                
+                <p>Bienvenido al Sistema de Gestión Académica ProgSena. Este manual le guiará a través de todas las
+                    funcionalidades del sistema, diseñado para facilitar la gestión de asignaciones, instructores,
+                    fichas y competencias en el SENA.</p>
+
                 <h3>1.1 Objetivo del Sistema</h3>
                 <p>El sistema ProgSena permite:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
@@ -185,15 +223,18 @@
                 <div class="feature-grid">
                     <div class="feature-card">
                         <h4>👨‍💼 Administrador</h4>
-                        <p>Acceso completo al sistema. Puede gestionar usuarios, sedes, programas, competencias y todas las configuraciones.</p>
+                        <p>Acceso completo al sistema. Puede gestionar usuarios, sedes, programas, competencias y todas
+                            las configuraciones.</p>
                     </div>
                     <div class="feature-card">
                         <h4>👨‍🏫 Coordinador</h4>
-                        <p>Gestiona asignaciones, envía notificaciones a instructores, administra fichas y ambientes.</p>
+                        <p>Gestiona asignaciones, envía notificaciones a instructores, administra fichas y ambientes.
+                        </p>
                     </div>
                     <div class="feature-card">
                         <h4>👨‍🎓 Instructor</h4>
-                        <p>Visualiza sus asignaciones, recibe notificaciones, actualiza su perfil y consulta su calendario.</p>
+                        <p>Visualiza sus asignaciones, recibe notificaciones, actualiza su perfil y consulta su
+                            calendario.</p>
                     </div>
                 </div>
             </div>
@@ -201,25 +242,25 @@
             <!-- SECCIÓN 2: ACCESO AL SISTEMA -->
             <div class="section">
                 <h2>2. Acceso al Sistema</h2>
-                
+
                 <h3>2.1 Credenciales de Acceso</h3>
                 <div class="credentials">
                     <h4>Usuarios del Sistema:</h4>
-                    
+
                     <div class="credential-item">
                         <strong>Administrador</strong><br>
                         Email: spiligr1@gmail.com<br>
                         Contraseña: 12345678<br>
                         Rol: Administrador
                     </div>
-                    
+
                     <div class="credential-item">
                         <strong>Coordinador</strong><br>
                         Email: maria.gonzalez@sena.edu.co<br>
                         Contraseña: maria123<br>
                         Rol: Coordinador
                     </div>
-                    
+
                     <div class="credential-item">
                         <strong>Instructor</strong><br>
                         Email: josevera@gmail.com<br>
@@ -239,14 +280,15 @@
                 </ol>
 
                 <div class="warning">
-                    <strong>⚠️ Importante:</strong> Asegúrese de seleccionar el rol correcto antes de iniciar sesión. Si selecciona un rol incorrecto, el sistema mostrará un error.
+                    <strong>⚠️ Importante:</strong> Asegúrese de seleccionar el rol correcto antes de iniciar sesión. Si
+                    selecciona un rol incorrecto, el sistema mostrará un error.
                 </div>
             </div>
 
             <!-- SECCIÓN 3: DASHBOARD COORDINADOR -->
             <div class="section">
                 <h2>3. Dashboard del Coordinador</h2>
-                
+
                 <h3>3.1 Visión General</h3>
                 <p>El dashboard del coordinador es el centro de control para la gestión académica. Desde aquí puede:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
@@ -275,7 +317,8 @@
                 </ol>
 
                 <div class="success">
-                    <strong>✅ Resultado:</strong> El sistema creará automáticamente eventos en el calendario para cada día seleccionado en el rango de fechas especificado.
+                    <strong>✅ Resultado:</strong> El sistema creará automáticamente eventos en el calendario para cada
+                    día seleccionado en el rango de fechas especificado.
                 </div>
 
                 <h3>3.3 Enviar Notificaciones</h3>
@@ -309,7 +352,7 @@
             <!-- SECCIÓN 4: DASHBOARD INSTRUCTOR -->
             <div class="section">
                 <h2>4. Dashboard del Instructor</h2>
-                
+
                 <h3>4.1 Visión General</h3>
                 <p>El dashboard del instructor muestra:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
@@ -343,7 +386,8 @@
                 </ol>
 
                 <div class="warning">
-                    <strong>⚠️ Nota:</strong> Los cambios de perfil se envían automáticamente al coordinador para su revisión y aprobación.
+                    <strong>⚠️ Nota:</strong> Los cambios de perfil se envían automáticamente al coordinador para su
+                    revisión y aprobación.
                 </div>
 
                 <h3>4.3 Gestionar Notificaciones</h3>
@@ -359,7 +403,7 @@
             <!-- SECCIÓN 5: CALENDARIO -->
             <div class="section">
                 <h2>5. Uso del Calendario</h2>
-                
+
                 <h3>5.1 Navegación</h3>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li><strong>Vistas disponibles:</strong> Mes, Semana, Día, Lista</li>
@@ -385,17 +429,18 @@
                 </ol>
 
                 <div class="warning">
-                    <strong>⚠️ Importante:</strong> Al eliminar un evento, se eliminarán TODOS los eventos relacionados de esa asignación (mismo grupo).
+                    <strong>⚠️ Importante:</strong> Al eliminar un evento, se eliminarán TODOS los eventos relacionados
+                    de esa asignación (mismo grupo).
                 </div>
             </div>
 
             <!-- SECCIÓN 6: ADMINISTRACIÓN -->
             <div class="section">
                 <h2>6. Panel de Administración</h2>
-                
+
                 <h3>6.1 Centro de Formación</h3>
                 <p>El administrador puede gestionar:</p>
-                
+
                 <div class="feature-grid">
                     <div class="feature-card">
                         <h4>📋 Fichas</h4>
@@ -427,7 +472,7 @@
             <!-- SECCIÓN 7: SOLUCIÓN DE PROBLEMAS -->
             <div class="section">
                 <h2>7. Solución de Problemas</h2>
-                
+
                 <h3>7.1 No puedo iniciar sesión</h3>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li>Verifique que seleccionó el rol correcto</li>
@@ -455,27 +500,31 @@
             <!-- SECCIÓN 8: PREGUNTAS FRECUENTES -->
             <div class="section">
                 <h2>8. Preguntas Frecuentes</h2>
-                
+
                 <h3>¿Puedo tener múltiples pestañas abiertas con diferentes roles?</h3>
                 <p>Sí, el sistema soporta múltiples pestañas con diferentes roles sin conflictos de sesión.</p>
 
                 <h3>¿Cómo cambio mi contraseña?</h3>
-                <p>Vaya a su perfil, haga clic en "Editar Perfil", complete los campos de cambio de contraseña y guarde.</p>
+                <p>Vaya a su perfil, haga clic en "Editar Perfil", complete los campos de cambio de contraseña y guarde.
+                </p>
 
                 <h3>¿Las notificaciones se actualizan automáticamente?</h3>
-                <p>Sí, las notificaciones se actualizan automáticamente cada 30 segundos sin necesidad de recargar la página.</p>
+                <p>Sí, las notificaciones se actualizan automáticamente cada 30 segundos sin necesidad de recargar la
+                    página.</p>
 
                 <h3>¿Puedo eliminar una asignación individual?</h3>
-                <p>No, al eliminar un evento se eliminan todos los eventos relacionados de esa asignación (grupo completo).</p>
+                <p>No, al eliminar un evento se eliminan todos los eventos relacionados de esa asignación (grupo
+                    completo).</p>
 
                 <h3>¿Cómo recupero mi contraseña?</h3>
-                <p>Haga clic en "¿Olvidaste tu contraseña? Recupérala aquí" en la página de login y siga las instrucciones.</p>
+                <p>Haga clic en "¿Olvidaste tu contraseña? Recupérala aquí" en la página de login y siga las
+                    instrucciones.</p>
             </div>
 
             <!-- SECCIÓN 9: CONTACTO Y SOPORTE -->
             <div class="section">
                 <h2>9. Contacto y Soporte</h2>
-                
+
                 <h3>9.1 Soporte Técnico</h3>
                 <p>Para asistencia técnica, contacte a:</p>
                 <div class="credential-item">
@@ -501,4 +550,5 @@
         </div>
     </div>
 </body>
+
 </html>

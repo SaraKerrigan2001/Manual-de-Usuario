@@ -1,0 +1,85 @@
+<?php
+
+$controllers = array(
+    'Auth'        => ['login', 'procesarLogin', 'registro', 'procesarRegistro', 'logout', 'olvidoPassword', 'procesarRecuperacion'],
+    'Coordinador' => ['index', 'dashboard', 'nuevoPrograma', 'nuevaAsignacion', 'guardarPrograma', 'guardarAsignacion', 'seguimientoFicha', 'verTransversales', 'editarTransversal', 'addAprendiz', 'addInstructor', 'addFicha', 'addSede', 'addAmbiente', 'addCompetencia', 'addPrograma', 'perfil', 'actualizarPerfil', 'eliminarSede', 'eliminarAmbiente', 'eliminarInstructor', 'eliminarFicha', 'actualizarSede', 'actualizarInstructor', 'actualizarFicha', 'actualizarAmbiente', 'eliminarPrograma', 'actualizarPrograma', 'eliminarCompetencia', 'actualizarCompetencia'],
+    'Administrador' => ['index', 'dashboard', 'centroFormacion', 'gestionFichas', 'gestionProgramas', 'gestionCompetencias', 'gestionSedes', 'gestionAmbientes', 'gestionInstructores', 'gestionAsignaciones', 'crearAsignacion', 'eliminarAsignacion', 'nuevoPrograma', 'nuevaAsignacion', 'guardarPrograma', 'guardarAsignacion', 'seguimientoFicha', 'verTransversales', 'editarTransversal', 'addAprendiz', 'addInstructor', 'addFicha', 'addSede', 'addAmbiente', 'addCompetencia', 'addPrograma', 'perfil', 'actualizarPerfil', 'eliminarSede', 'eliminarAmbiente', 'eliminarInstructor', 'eliminarFicha', 'eliminarAprendiz', 'actualizarSede', 'actualizarAprendiz', 'actualizarInstructor', 'actualizarFicha', 'actualizarAmbiente', 'eliminarPrograma', 'actualizarPrograma', 'eliminarCompetencia', 'actualizarCompetencia'],
+    'Instructor'  => ['index', 'registrar', 'guardarInstructor', 'dashboard', 'perfil', 'editarPerfil', 'actualizarPerfil'],
+    'Usuario'     => ['dashboard', 'perfil'],
+    'Experiencia' => ['index', 'listar', 'nueva', 'guardar', 'editar'],
+    'Sede'        => ['index', 'nueva', 'guardar', 'editar', 'actualizar', 'eliminar', 'buscar']
+);
+
+// Validar que el controlador existe
+if (array_key_exists($controlador, $controllers)) {
+    if (in_array($accion, $controllers[$controlador])) {
+        call($controlador, $accion);
+    } else {
+        // Acción no válida
+        header("HTTP/1.0 404 Not Found");
+        echo "Acción no encontrada";
+    }
+} else {
+    // Controlador no válido
+    header("HTTP/1.0 404 Not Found");
+    echo "Controlador no encontrado";
+}
+
+/**
+ * Función para llamar al controlador y acción correspondiente
+ */
+function call($controlador, $accion) {
+    $controllerFile = 'Controlador/' . $controlador . 'Controller.php';
+    
+    if (!file_exists($controllerFile)) {
+        die("Error: No se encontró el controlador $controlador");
+    }
+    
+    require_once($controllerFile);
+
+    switch($controlador) {
+        case 'Auth':
+            require_once('Modelo/Usuario.php');
+            $controller = new AuthController();
+            break;
+        case 'Coordinador':
+            require_once('Modelo/Coordinador.php');
+            $controller = new CoordinadorController();
+            break;
+        case 'Administrador':
+            require_once('Modelo/Administrador.php');
+            $controller = new AdministradorController();
+            break;
+        case 'Instructor':
+            if (file_exists('Modelo/Instructor.php')) {
+                require_once('Modelo/Instructor.php');
+            }
+            $controller = new InstructorController();
+            break;
+        case 'Usuario':
+            $controller = new UsuarioController();
+            break;
+        case 'Experiencia':
+            if (file_exists('Modelo/Experiencia.php')) {
+                require_once('Modelo/Experiencia.php');
+            }
+            $controller = new ExperienciaController();
+            break;
+        case 'Sede':
+            if (file_exists('Modelo/Sede.php')) {
+                require_once('Modelo/Sede.php');
+            }
+            $controller = new SedeController();
+            break;
+        default:
+            die("Error: Controlador no válido");
+    }
+    
+    if (method_exists($controller, $accion)) {
+        $controller->{$accion}();
+    } else {
+        die("Error: La acción $accion no existe en el controlador $controlador");
+    }
+}
+
+?>
